@@ -24,6 +24,8 @@ export const Room = () => {
         //   }
         // });
 
+        //firestoreにソートするメソッド"orderBy"があるため、そちらを使う。
+
         setMessages(messages);
       });
   }, []);
@@ -39,6 +41,9 @@ export const Room = () => {
     });
     setValue("");
   };
+
+  //Timeはnew Dateでとってしまうと、ブラウザの時間を取得するため、ブラウザの時間をいじっていると表示がおかしくなってしまう。
+  // そのため、firestoreで入力時の時間を取得するメソッドを使う。→ firestore.FieldValue.serverTimestamp()
 
   return (
     <>
