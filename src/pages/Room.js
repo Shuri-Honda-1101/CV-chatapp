@@ -29,6 +29,7 @@ export const Room = () => {
         setMessages(messages);
       });
   }, []);
+  console.log(messages);
 
   const user = useContext(AuthContext);
 
@@ -38,9 +39,12 @@ export const Room = () => {
       content: value,
       user: user.displayName,
       time: firebase.firestore.FieldValue.serverTimestamp(),
+      avatar: user.photoURL,
     });
     setValue("");
   };
+
+  console.log(user);
 
   //Timeはnew Dateでとってしまうと、ブラウザの時間を取得するため、ブラウザの時間をいじっていると表示がおかしくなってしまう。
   // そのため、firestoreで入力時の時間を取得するメソッドを使う。→ firestore.FieldValue.serverTimestamp()
@@ -52,7 +56,12 @@ export const Room = () => {
         {messages &&
           messages.map((message, index) => {
             return (
-              <Item key={index} user={message.user} content={message.content} />
+              <Item
+                key={index}
+                user={message.user}
+                content={message.content}
+                avatar={message.avatar}
+              />
             );
           })}
       </ul>

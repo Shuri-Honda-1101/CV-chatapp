@@ -1,7 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
-
+import "firebase/storage";
 const firebaseConfig = {
   apiKey: "AIzaSyD9K0e88zJkPexZtsdaG3GMt9CQTUkdI0A",
   authDomain: "cv-chat-c4387.firebaseapp.com",

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import firebase from "../config/firebase";
 
-export const SignUp = () => {
+export const SignUp = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [avatar, setAvatar] = useState(null);
 
   const onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -18,12 +19,24 @@ export const SignUp = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const iconRef = firebase
+      .storage()
+      .ref()
+      .child("user-image/" + avatar.name);
+    console.log(avatar);
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
-        user.updateProfile({
-          displayName: name,
+        iconRef.put(avatar).then(() => {
+          iconRef.getDownloadURL().then((url) => {
+            console.log(url);
+            user.updateProfile({
+              displayName: name,
+              photoURL: url,
+            });
+            history.push("/");
+          });
         });
       })
       .catch((err) => {
@@ -65,6 +78,15 @@ export const SignUp = () => {
             value={name}
             placeholder="name"
             onChange={onChangeName}
+          />
+        </div>
+        <div>
+          <label htmlFor="avatar">ユーザー画像</label>
+          <input
+            type="file"
+            name="avatar"
+            id="avatar"
+            onChange={(e) => setAvatar(e.target.files[0])}
           />
         </div>
         <button type="submit">Sign Up</button>
