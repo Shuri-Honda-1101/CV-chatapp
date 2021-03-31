@@ -56,9 +56,13 @@ export const Login = ({ history }) => {
         <br />
       </form>
 
-      <Link to="/signup">
-        <button>SignUpはコチラから</button>
-      </Link>
+      <button
+        onClick={() => {
+          history.push("/signup");
+        }}
+      >
+        SignUpはコチラから
+      </button>
 
       {/* <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} /> */}
