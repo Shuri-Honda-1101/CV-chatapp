@@ -7,6 +7,32 @@ export const SignUp = ({ history }) => {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState(null);
 
+  const onClickTwitter = () => {
+    const provider = new firebase.auth.TwitterAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const onClickGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const iconRef = firebase
@@ -81,6 +107,8 @@ export const SignUp = ({ history }) => {
         </div>
         <button type="submit">Sign Up</button>
       </form>
+      <button onClick={onClickGoogle}>Googleでサインアップする</button>
+      <button onClick={onClickTwitter}>Twitterでサインアップする</button>
     </>
   );
 };

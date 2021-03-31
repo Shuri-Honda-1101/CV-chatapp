@@ -29,7 +29,6 @@ export const Room = () => {
         setMessages(messages);
       });
   }, []);
-  console.log(messages);
 
   const user = useContext(AuthContext);
 
@@ -43,8 +42,6 @@ export const Room = () => {
     });
     setValue("");
   };
-
-  console.log(user);
 
   //Timeはnew Dateでとってしまうと、ブラウザの時間を取得するため、ブラウザの時間をいじっていると表示がおかしくなってしまう。
   // そのため、firestoreで入力時の時間を取得するメソッドを使う。→ firestore.FieldValue.serverTimestamp()

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { Redirect } from "react-router";
-import { Link } from "react-router-dom";
 import { AuthContext } from "../AuthServise";
 import firebase from "../config/firebase";
 
@@ -12,6 +11,32 @@ export const Login = ({ history }) => {
   if (user) {
     return <Redirect to={"/"} />;
   }
+
+  const onClickTwitter = () => {
+    const provider = new firebase.auth.TwitterAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const onClickGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,7 +80,9 @@ export const Login = ({ history }) => {
         <button type="submit">Login</button>
         <br />
       </form>
-
+      <button onClick={onClickGoogle}>Googleでログインする</button>
+      <button onClick={onClickTwitter}>Twitterでログインする</button>
+      <br />
       <button
         onClick={() => {
           history.push("/signup");
