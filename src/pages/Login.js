@@ -21,7 +21,7 @@ export const Login = ({ history }) => {
       .then(() => {
         history.push("/");
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log(error);
       });
   };

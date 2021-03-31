@@ -7,16 +7,6 @@ export const SignUp = ({ history }) => {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState(null);
 
-  const onChangeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const onChangeName = (e) => {
-    setName(e.target.value);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const iconRef = firebase
@@ -55,7 +45,7 @@ export const SignUp = ({ history }) => {
             id="email"
             value={email}
             placeholder="Email"
-            onChange={onChangeEmail}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div>
@@ -66,7 +56,7 @@ export const SignUp = ({ history }) => {
             id="password"
             value={password}
             placeholder="password"
-            onChange={onChangePassword}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <div>
@@ -77,7 +67,7 @@ export const SignUp = ({ history }) => {
             id="name"
             value={name}
             placeholder="name"
-            onChange={onChangeName}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div>
