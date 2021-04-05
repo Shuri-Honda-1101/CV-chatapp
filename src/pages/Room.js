@@ -28,15 +28,17 @@ export const Room = () => {
       .collection("messages")
       .orderBy("time")
       .onSnapshot((snapshot) => {
-        const preMessages = snapshot.docs.map((doc) => {
+        let messages = snapshot.docs.map((doc) => {
           return doc.data({ serverTimestamps: "estimate" });
         });
-        const messages = preMessages.map((message) => {
+        messages = messages.map((message) => {
           message.year = message.time.toDate().getFullYear();
-          message.month = message.time.toDate().getMonth() + 1;
-          message.date = message.time.toDate().getDate();
-          message.hour = message.time.toDate().getHours();
-          message.min = message.time.toDate().getMinutes();
+          message.month = ("0" + (message.time.toDate().getMonth() + 1)).slice(
+            -2
+          );
+          message.date = ("0" + message.time.toDate().getDate()).slice(-2);
+          message.hour = ("0" + message.time.toDate().getHours()).slice(-2);
+          message.min = ("0" + message.time.toDate().getMinutes()).slice(-2);
           return message;
         });
         // messages.sort((a, b) => {
