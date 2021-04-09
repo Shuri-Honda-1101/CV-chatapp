@@ -149,7 +149,7 @@ export const Login = ({ history }) => {
 
 const Header = styled.section`
   background-color: #094067;
-  height: 9.1vh;
+  height: 5.15vw;
   color: #fffffe;
   font-family: Montserrat;
   font-size: 2.3vw; //4.4rem;
@@ -364,11 +364,6 @@ const LoginNew = styled.div`
   .btn-new {
     color: #ffffff;
     background-color: #094067;
-    // img {
-    //   width: 2.1vw; //4rem;
-    //   vertical-align: middle;
-    //   margin-right: 2.9vw; //6.5rem;
-    // }
     :after {
       background-color: #ffffff;
     }
