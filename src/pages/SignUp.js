@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import firebase from "../config/firebase";
+import styled from "styled-components";
+import Logo from "../img/logo.png";
+import Button from "@material-ui/core/Button";
 
 export const SignUp = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -7,31 +10,31 @@ export const SignUp = ({ history }) => {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState(null);
 
-  const onClickTwitter = () => {
-    const provider = new firebase.auth.TwitterAuthProvider();
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(() => {
-        history.push("/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const onClickTwitter = () => {
+  //   const provider = new firebase.auth.TwitterAuthProvider();
+  //   firebase
+  //     .auth()
+  //     .signInWithPopup(provider)
+  //     .then(() => {
+  //       history.push("/");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
-  const onClickGoogle = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then(() => {
-        history.push("/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const onClickGoogle = () => {
+  //   const provider = new firebase.auth.GoogleAuthProvider();
+  //   firebase
+  //     .auth()
+  //     .signInWithPopup(provider)
+  //     .then(() => {
+  //       history.push("/");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -61,54 +64,155 @@ export const SignUp = ({ history }) => {
   };
   return (
     <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">E-mail</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            placeholder="password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="name">Name</label>
-          <input
-            type="name"
-            name="name"
-            id="name"
-            value={name}
-            placeholder="name"
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="avatar">ユーザー画像</label>
-          <input
-            type="file"
-            name="avatar"
-            id="avatar"
-            onChange={(e) => setAvatar(e.target.files[0])}
-          />
-        </div>
-        <button type="submit">Sign Up</button>
-      </form>
-      <button onClick={onClickGoogle}>Googleでサインアップする</button>
-      <button onClick={onClickTwitter}>Twitterでサインアップする</button>
+      <Header>
+        <h1>
+          <span>
+            <img src={Logo} alt="logo" />
+          </span>
+          -Bond
+        </h1>
+      </Header>
+      <SignUpFormWrap>
+        <h2>新規登録</h2>
+        <SignUpForm>
+          <form onSubmit={handleSubmit}>
+            <div className="input-image-wrap">
+              <label htmlFor="avatar">ユーザー画像</label>
+              <input
+                type="file"
+                name="avatar"
+                id="avatar"
+                onChange={(e) => setAvatar(e.target.files[0])}
+              />
+            </div>
+            <div className="input-wrap">
+              <input
+                type="name"
+                name="name"
+                id="name"
+                value={name}
+                placeholder="ユーザー名"
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+            <div className="input-wrap">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value={email}
+                placeholder="メールアドレス"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="input-wrap">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                value={password}
+                placeholder="パスワード"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <Button variant="contained" type="submit">
+              新規登録
+            </Button>
+          </form>
+          {/* <button onClick={onClickGoogle}>Googleでサインアップする</button>
+      <button onClick={onClickTwitter}>Twitterでサインアップする</button> */}
+        </SignUpForm>
+      </SignUpFormWrap>
     </>
   );
 };
+
+const Header = styled.section`
+  background-color: #094067;
+  height: 5.15vw;
+  color: #fffffe;
+  font-family: Montserrat;
+  font-size: 2.3vw; //4.4rem;
+  line-height: 2.8vw; //5.4rem;
+  display: flex;
+  align-items: center;
+  padding: 1.35vw 0 1.35vw 3.28vw; // 2.6rem 0 2.6rem 6.3rem;
+  img {
+    height: 2vw; //3.9rem;
+    transform: translate(-8%, 11%);
+  }
+`;
+
+const SignUpFormWrap = styled.section`
+  color: #5f6c7b;
+  width: 68.2vw; //= 1309 / 1920
+  margin: 4.6vw auto; //8.9rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  h2 {
+    font-family: "ヒラギノ丸ゴ ProN";
+    font-size: 3.9vw; //7.5rem;
+    color: #7a92a3;
+    margin-bottom: 3.4rem;
+  }
+`;
+
+const SignUpForm = styled.div`
+  height: 35.1vw; //674px;
+  width: 48%;
+  border: 1px solid #90b4ce;
+  border-radius: 0.78vw; //1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3.8rem 0;
+  h3 {
+    font-size: 1.87vw; //3.6rem
+    margin-bottom: 4.3vw; //8.2rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .input-wrap {
+      input {
+        width: 21.9vw; //430/1920
+        height: 3.9vw; //7.5rem;
+        border-radius: 0.62vw; //1.2rem;
+        border: 1px solid #707070;
+        padding-left: 1.5vw; //2.9rem;
+        font-family: "ヒラギノ丸ゴ ProN";
+        font-size: 1.15vw; //2.2rem;
+        ::placeholder {
+          color: rgba(95, 108, 123, 0.56);
+        }
+      }
+      margin-bottom: 1.7vw; //3.3rem;
+      :nth-of-type(4) {
+        margin-bottom: 0;
+      }
+    }
+
+    button {
+      margin: 4.6rem 0 3.8rem 0;
+      background-color: #ef4565;
+      color: #fff;
+      font-size: 1.8vw; //3.5rem;
+      border-radius: 0.62vw; //1.2rem;
+      width: 11.4vw; //21.9rem;
+      height: 3.9vw; //7.5rem;
+      font-family: "ヒラギノ丸ゴ ProN";
+      font-weight: normal;
+      line-height: 3.1vw; //6rem;
+      :hover {
+        background-color: #dc004e;
+      }
+    }
+  }
+  button {
+    font-size: 1.3vw; //2.5rem;
+    color: #5f6c7b;
+    padding: 0;
+  }
+`;
