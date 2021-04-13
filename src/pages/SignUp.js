@@ -27,10 +27,12 @@ export const SignUp = ({ history }) => {
       const croppedImage = await getCroppedImg(src, croppedAreaPixels);
       console.log("donee", { croppedImage });
       setCroppedImage(croppedImage);
+      // const fileReader = new FileReader()
+      // const croppedImageBase64 =fileReader.readAsDataURL(croppedImage)
     } catch (e) {
       console.error(e);
     }
-  }, [croppedAreaPixels]);
+  }, [src, croppedAreaPixels]);
 
   const onChangeFile = (e) => {
     setSrc(URL.createObjectURL(e.target.files[0]));
@@ -49,16 +51,18 @@ export const SignUp = ({ history }) => {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
-        iconRef.put(croppedImage).then((snapshot) => {
-          iconRef.getDownloadURL().then((url) => {
-            console.log(url);
-            user.updateProfile({
-              displayName: name,
-              photoURL: url,
+        iconRef
+          .putString(croppedImage.substring(23), "base64")
+          .then((snapshot) => {
+            iconRef.getDownloadURL().then((url) => {
+              console.log(url);
+              user.updateProfile({
+                displayName: name,
+                photoURL: url,
+              });
+              history.push("/");
             });
-            history.push("/");
           });
-        });
       })
       .catch((err) => {
         console.log(err);
@@ -115,7 +119,13 @@ export const SignUp = ({ history }) => {
               </Controls>
             )}
             {src && <button onClick={showCroppedImage}>OK</button>}
-            {croppedImage && <img src={croppedImage} />}
+            {croppedImage && (
+              <img
+                src={croppedImage}
+                alt="プレビュー画像"
+                style={{ borderRadius: "50%" }}
+              />
+            )}
             <div className="input-wrap">
               <input
                 type="name"
