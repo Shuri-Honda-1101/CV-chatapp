@@ -1,40 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import firebase from "../config/firebase";
 import styled from "styled-components";
 import Logo from "../img/logo.png";
 import Button from "@material-ui/core/Button";
+import Slider from "@material-ui/core/Slider";
+import Cropper from "react-easy-crop";
+import getCroppedImg from "../cropImage";
 
 export const SignUp = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState(null);
+  const [src, setSrc] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(null);
 
-  // const onClickTwitter = () => {
-  //   const provider = new firebase.auth.TwitterAuthProvider();
-  //   firebase
-  //     .auth()
-  //     .signInWithPopup(provider)
-  //     .then(() => {
-  //       history.push("/");
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
 
-  // const onClickGoogle = () => {
-  //   const provider = new firebase.auth.GoogleAuthProvider();
-  //   firebase
-  //     .auth()
-  //     .signInWithPopup(provider)
-  //     .then(() => {
-  //       history.push("/");
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  const showCroppedImage = useCallback(async () => {
+    try {
+      const croppedImage = await getCroppedImg(src, croppedAreaPixels);
+      console.log("donee", { croppedImage });
+      setCroppedImage(croppedImage);
+    } catch (e) {
+      console.error(e);
+    }
+  }, [croppedAreaPixels]);
+
+  const onChangeFile = (e) => {
+    setSrc(URL.createObjectURL(e.target.files[0]));
+    setAvatar(e.target.files[0]);
+    console.log(e.target.files[0]);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,7 +49,7 @@ export const SignUp = ({ history }) => {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
-        iconRef.put(avatar).then(() => {
+        iconRef.put(croppedImage).then((snapshot) => {
           iconRef.getDownloadURL().then((url) => {
             console.log(url);
             user.updateProfile({
@@ -82,9 +84,38 @@ export const SignUp = ({ history }) => {
                 type="file"
                 name="avatar"
                 id="avatar"
-                onChange={(e) => setAvatar(e.target.files[0])}
+                onChange={onChangeFile}
               />
             </div>
+            {src && (
+              <CropperWrap>
+                <Cropper
+                  image={src}
+                  crop={crop}
+                  zoom={zoom}
+                  aspect={1}
+                  cropShape="round"
+                  onCropChange={setCrop}
+                  onCropComplete={onCropComplete}
+                  onZoomChange={setZoom}
+                />
+              </CropperWrap>
+            )}
+            {src && (
+              <Controls>
+                <Slider
+                  value={zoom}
+                  min={1}
+                  max={3}
+                  step={0.1}
+                  aria-labelledby="Zoom"
+                  onChange={(e, zoom) => setZoom(zoom)}
+                  classes={{ root: "slider" }}
+                />
+              </Controls>
+            )}
+            {src && <button onClick={showCroppedImage}>OK</button>}
+            {croppedImage && <img src={croppedImage} />}
             <div className="input-wrap">
               <input
                 type="name"
@@ -119,8 +150,6 @@ export const SignUp = ({ history }) => {
               新規登録
             </Button>
           </form>
-          {/* <button onClick={onClickGoogle}>Googleでサインアップする</button>
-      <button onClick={onClickTwitter}>Twitterでサインアップする</button> */}
         </SignUpForm>
       </SignUpFormWrap>
     </>
@@ -215,4 +244,14 @@ const SignUpForm = styled.div`
     color: #5f6c7b;
     padding: 0;
   }
+`;
+
+const CropperWrap = styled.div`
+  height: 900px;
+  width: 900px;
+  position: relative;
+`;
+
+const Controls = styled.div`
+  width: 900px;
 `;
