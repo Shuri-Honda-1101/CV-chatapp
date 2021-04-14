@@ -1,11 +1,14 @@
 import React, { useState, useCallback } from "react";
 import firebase from "../config/firebase";
 import styled from "styled-components";
+import iconDefault from "../img/icon_default.png";
+import iconMask from "../img/icon-mask.png";
 import Logo from "../img/logo.png";
 import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../cropImage";
+import CloseIcon from "@material-ui/icons/Close";
 
 export const SignUp = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -16,7 +19,7 @@ export const SignUp = ({ history }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const [croppedImage, setCroppedImage] = useState(null);
+  const [croppedImage, setCroppedImage] = useState(iconDefault);
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -26,9 +29,9 @@ export const SignUp = ({ history }) => {
     try {
       const croppedImage = await getCroppedImg(src, croppedAreaPixels);
       console.log("donee", { croppedImage });
-      setCroppedImage(croppedImage);
-      // const fileReader = new FileReader()
-      // const croppedImageBase64 =fileReader.readAsDataURL(croppedImage)
+      let blobImage = await fetch(croppedImage).then((r) => r.blob());
+      setCroppedImage(blobImage);
+      setSrc(null);
     } catch (e) {
       console.error(e);
     }
@@ -38,6 +41,11 @@ export const SignUp = ({ history }) => {
     setSrc(URL.createObjectURL(e.target.files[0]));
     setAvatar(e.target.files[0]);
     console.log(e.target.files[0]);
+  };
+
+  const onClickClose = () => {
+    setSrc(null);
+    setAvatar(null);
   };
 
   const handleSubmit = (e) => {
@@ -83,48 +91,55 @@ export const SignUp = ({ history }) => {
         <SignUpForm>
           <form onSubmit={handleSubmit}>
             <div className="input-image-wrap">
-              <label htmlFor="avatar">ユーザー画像</label>
-              <input
-                type="file"
-                name="avatar"
-                id="avatar"
-                onChange={onChangeFile}
-              />
+              <IconUp>
+                <span>
+                  <img src={croppedImage} alt="デフォルトアイコン" />
+                </span>
+                <input
+                  type="file"
+                  files={avatar}
+                  name="avatar"
+                  id="avatar"
+                  onChange={onChangeFile}
+                />
+              </IconUp>
             </div>
             {src && (
-              <CropperWrap>
-                <Cropper
-                  image={src}
-                  crop={crop}
-                  zoom={zoom}
-                  aspect={1}
-                  cropShape="round"
-                  onCropChange={setCrop}
-                  onCropComplete={onCropComplete}
-                  onZoomChange={setZoom}
-                />
-              </CropperWrap>
-            )}
-            {src && (
-              <Controls>
-                <Slider
-                  value={zoom}
-                  min={1}
-                  max={3}
-                  step={0.1}
-                  aria-labelledby="Zoom"
-                  onChange={(e, zoom) => setZoom(zoom)}
-                  classes={{ root: "slider" }}
-                />
-              </Controls>
-            )}
-            {src && <button onClick={showCroppedImage}>OK</button>}
-            {croppedImage && (
-              <img
-                src={croppedImage}
-                alt="プレビュー画像"
-                style={{ borderRadius: "50%" }}
-              />
+              <ModalCropperWrap>
+                <ModalCropper>
+                  <CloseIcon onClick={onClickClose} />
+                  <div className="cropper-wrap">
+                    <Cropper
+                      image={src}
+                      crop={crop}
+                      zoom={zoom}
+                      aspect={1}
+                      cropShape="round"
+                      onCropChange={setCrop}
+                      onCropComplete={onCropComplete}
+                      onZoomChange={setZoom}
+                    />
+                  </div>
+                  <Controls className="slider-wrap">
+                    <Slider
+                      value={zoom}
+                      min={1}
+                      max={3}
+                      step={0.1}
+                      aria-labelledby="Zoom"
+                      onChange={(e, zoom) => setZoom(zoom)}
+                      classes={{ root: "slider" }}
+                    />
+                  </Controls>
+                  <Button
+                    className="cropper-ok"
+                    variant="contained"
+                    onClick={showCroppedImage}
+                  >
+                    OK
+                  </Button>
+                </ModalCropper>
+              </ModalCropperWrap>
             )}
             <div className="input-wrap">
               <input
@@ -156,7 +171,7 @@ export const SignUp = ({ history }) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <Button variant="contained" type="submit">
+            <Button className="signup" variant="contained" type="submit">
               新規登録
             </Button>
           </form>
@@ -205,7 +220,10 @@ const SignUpForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3.8rem 0;
+  padding: 3.5rem 0;
+  .input-image-wrap {
+    margin-bottom: 2.5rem;
+  }
   h3 {
     font-size: 1.87vw; //3.6rem
     margin-bottom: 4.3vw; //8.2rem;
@@ -217,7 +235,7 @@ const SignUpForm = styled.div`
     .input-wrap {
       input {
         width: 21.9vw; //430/1920
-        height: 3.9vw; //7.5rem;
+        height: 6.6rem;
         border-radius: 0.62vw; //1.2rem;
         border: 1px solid #707070;
         padding-left: 1.5vw; //2.9rem;
@@ -227,14 +245,14 @@ const SignUpForm = styled.div`
           color: rgba(95, 108, 123, 0.56);
         }
       }
-      margin-bottom: 1.7vw; //3.3rem;
+      margin-bottom: 2.9rem; //3.3rem;
       :nth-of-type(4) {
         margin-bottom: 0;
       }
     }
 
-    button {
-      margin: 4.6rem 0 3.8rem 0;
+    .signup {
+      margin: 2.4rem 0 3.8rem 0;
       background-color: #ef4565;
       color: #fff;
       font-size: 1.8vw; //3.5rem;
@@ -256,12 +274,117 @@ const SignUpForm = styled.div`
   }
 `;
 
-const CropperWrap = styled.div`
-  height: 900px;
-  width: 900px;
-  position: relative;
-`;
-
 const Controls = styled.div`
   width: 900px;
+`;
+
+const IconUp = styled.label`
+  cursor: pointer;
+  input {
+    display: none;
+  }
+  span {
+    display: inline-block;
+    position: relative;
+    :before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      content: "";
+      display: inline-block;
+      background-color: black;
+      height: 22rem;
+      width: 22rem;
+      opacity: 0.32;
+      border-radius: 50%;
+    }
+    :after {
+      content: "";
+      height: 22rem;
+      width: 22rem;
+      display: inline-block;
+      position: absolute;
+      top: -17%;
+      left: -19%;
+      z-index: 3;
+      background-image: url(${iconMask});
+    }
+  }
+  img {
+    border-radius: 50%;
+    height: 22rem;
+    width: 22rem;
+  }
+`;
+
+const ModalCropperWrap = styled.div`
+  z-index: 4;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ModalCropper = styled.div`
+  z-index: 5;
+  height: 87.5rem;
+  width: 77.2rem;
+  border-radius: 6.5rem;
+  background-color: #fff;
+
+  .MuiSvgIcon-root {
+    font-size: 5rem;
+    margin: 4rem 5.5rem 0 0;
+    float: right; 
+    cursor: pointer;
+  }
+
+  .cropper-wrap {
+    position: relative;
+    height: 49.2rem;
+    width: 49.2rem;
+    margin: 12rem auto 4.57rem;
+    .reactEasyCrop_Container {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+      img {
+        height: 50rem;
+      }
+      div {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  .slider-wrap {
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .cropper-ok {
+    display: block;
+    margin: 4.6rem auto 0;
+    background-color: #ef4565;
+      color: #fff;
+      font-size: 1.8vw; //3.5rem;
+      border-radius: 0.62vw; //1.2rem;
+      width: 11.4vw; //21.9rem;
+      height: 3.9vw; //7.5rem;
+      font-family: "ヒラギノ丸ゴ ProN";
+      font-weight: normal;
+      line-height: 3.1vw; //6rem;
+      :hover {
+        background-color: #dc004e;
+      }
+    }
+  }
 `;
