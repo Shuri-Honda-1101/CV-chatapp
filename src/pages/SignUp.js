@@ -125,7 +125,7 @@ export const SignUp = ({ history }) => {
                       onZoomChange={setZoom}
                     />
                   </div>
-                  <Controls className="slider-wrap">
+                  <div className="slider-wrap">
                     <Slider
                       value={zoom}
                       min={1}
@@ -135,7 +135,7 @@ export const SignUp = ({ history }) => {
                       onChange={(e, zoom) => setZoom(zoom)}
                       classes={{ root: "slider" }}
                     />
-                  </Controls>
+                  </div>
                   <Button
                     className="cropper-ok"
                     variant="contained"
@@ -213,7 +213,7 @@ const SignUpFormWrap = styled.section`
     font-family: "ヒラギノ丸ゴ ProN";
     font-size: 3.9vw; //7.5rem;
     color: #7a92a3;
-    margin-bottom: 3.4rem;
+    margin-bottom: 1.77vw; //3.4rem;
   }
 `;
 
@@ -225,9 +225,9 @@ const SignUpForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3.5rem 0;
+  padding: 1.82vw 0; //3.5rem 0;
   .input-image-wrap {
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.3vw; //2.5rem;
   }
   h3 {
     font-size: 1.87vw; //3.6rem
@@ -240,7 +240,7 @@ const SignUpForm = styled.div`
     .input-wrap {
       input {
         width: 21.9vw; //430/1920
-        height: 6.6rem;
+        height: 3.43vw; //6.6rem;
         border-radius: 0.62vw; //1.2rem;
         border: 1px solid #707070;
         padding-left: 1.5vw; //2.9rem;
@@ -250,14 +250,14 @@ const SignUpForm = styled.div`
           color: rgba(95, 108, 123, 0.56);
         }
       }
-      margin-bottom: 2.9rem; //3.3rem;
+      margin-bottom: 1.5vw; //2.9rem;
       :nth-of-type(4) {
         margin-bottom: 0;
       }
     }
 
     .signup {
-      margin: 2.4rem 0 3.8rem 0;
+      margin: 1.25vw 0 1.98vw 0; //2.4rem 0 3.8rem 0;
       background-color: #ef4565;
       color: #fff;
       font-size: 1.8vw; //3.5rem;
@@ -279,10 +279,6 @@ const SignUpForm = styled.div`
   }
 `;
 
-const Controls = styled.div`
-  width: 900px;
-`;
-
 const IconUp = styled.label`
   cursor: pointer;
   input {
@@ -299,15 +295,15 @@ const IconUp = styled.label`
       content: "";
       display: inline-block;
       background-color: black;
-      height: 22rem;
-      width: 22rem;
+      height: 11.5vw; //22rem;
+      width: 11.5vw; //22rem;
       opacity: 0.32;
       border-radius: 50%;
     }
     :after {
       content: "";
-      height: 22rem;
-      width: 22rem;
+      height: 11.5vw; //22rem;
+      width: 11.5vw; //22rem;
       display: inline-block;
       position: absolute;
       top: -18%;
@@ -318,8 +314,8 @@ const IconUp = styled.label`
   }
   img {
     border-radius: 50%;
-    height: 22rem;
-    width: 22rem;
+    height: 11.5vw; //22rem;
+    width: 11.5vw; //22rem;
   }
 `;
 
@@ -339,14 +335,14 @@ const ModalCropperWrap = styled.div`
 
 const ModalCropper = styled.div`
   z-index: 5;
-  height: 87.5rem;
-  width: 77.2rem;
-  border-radius: 6.5rem;
+  height: 45.6vw; //87.5rem;
+  width: 40.2vw; //77.2rem;
+  border-radius: 3.4vw; //6.5rem;
   background-color: #fff;
 
   .MuiSvgIcon-root {
-    font-size: 5rem;
-    margin: 4rem 5.5rem 0 0;
+    font-size: 2.6vw; //5rem;
+    margin: 2.1vw 2.86vw 0 0; //4rem 5.5rem 0 0;
     float: right; 
     cursor: pointer;
     color: #EF4565;
@@ -354,15 +350,15 @@ const ModalCropper = styled.div`
 
   .cropper-wrap {
     position: relative;
-    height: 49.2rem;
-    width: 49.2rem;
-    margin: 12rem auto 4.57rem;
+    height: 25.62vw; //49.2rem;
+    width: 25.62vw; //49.2rem;
+    margin: 6.25vw auto 2.38vw; //12rem auto 4.57rem;
     .reactEasyCrop_Container {
       height: 100%;
       width: 100%;
       object-fit: contain;
       img {
-        height: 50rem;
+        height: 26vw; //50rem;
       }
       div {
         height: 100%;
@@ -378,7 +374,7 @@ const ModalCropper = styled.div`
 
   .cropper-ok {
     display: block;
-    margin: 4.6rem auto 0;
+    margin: 2.4vw auto 0; //4.6rem auto 0;
     background-color: #ef4565;
       color: #fff;
       font-size: 1.8vw; //3.5rem;
