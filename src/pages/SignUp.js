@@ -19,9 +19,9 @@ export const SignUp = ({ history }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  const [croppedImage, setCroppedImage] = useState(iconDefault);
+  const [croppedImage, setCroppedImage] = useState(null);
   const [selectImageValue, setSelectImageValue] = useState("");
-  const [croppedImageUrl, setCroppedImageUrl] = useState(null);
+  const [croppedImageUrl, setCroppedImageUrl] = useState(iconDefault);
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
