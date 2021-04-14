@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthServise";
 import firebase from "../config/firebase";
 import { Item } from "./Item";
+import styled from "styled-components";
+import Logo from "../img/logo.png";
+import Grid from "@material-ui/core/Grid";
 
 export const Room = () => {
   const [value, setValue] = useState("");
@@ -57,34 +60,100 @@ export const Room = () => {
 
   return (
     <>
-      <h1>Room</h1>
-      <ul>
-        {messages &&
-          messages.map((message, index) => {
-            return (
-              <Item
-                key={index}
-                user={message.user}
-                content={message.content}
-                avatar={message.avatar}
-                year={message.year}
-                month={message.month}
-                date={message.date}
-                hour={message.hour}
-                min={message.min}
-              />
-            );
-          })}
-      </ul>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <button type="submit">送信</button>
-      </form>
-      <button onClick={() => firebase.auth().signOut()}>Logout</button>
+      <Wrap>
+        <Grid container spacing={0}>
+          <Grid item xs={2} className="profile_wrap_grid">
+            <ProfileWrap className="profile_wrap">
+              <ProfileHeader className="profile_header">
+                <h1>
+                  <span>
+                    <img src={Logo} alt="logo" />
+                  </span>
+                  -Bond
+                </h1>
+              </ProfileHeader>
+              <Profile className="profile">
+                <img src={user.photoURL} alt="ユーザーアイコン" />
+                <p>{user.displayName}</p>
+                <button>プロフィールを更新する</button>
+              </Profile>
+              <div className="logout-btn">
+                <button>ログアウト</button>
+              </div>
+            </ProfileWrap>
+          </Grid>
+          <Grid item xs={2} className="room-list_wrap">
+            <div className="room-list_header"></div>
+            <div className="room-list"></div>
+          </Grid>
+          <Grid item xs={8} className="chat-room">
+            <div className="chat-room_header"></div>
+            <div className="chat-log">
+              <ul>
+                {messages &&
+                  messages.map((message, index) => {
+                    return (
+                      <Item
+                        key={index}
+                        user={message.user}
+                        content={message.content}
+                        avatar={message.avatar}
+                        year={message.year}
+                        month={message.month}
+                        date={message.date}
+                        hour={message.hour}
+                        min={message.min}
+                      />
+                    );
+                  })}
+              </ul>
+            </div>
+            <div className="chat-submit">
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                />
+                <button type="submit">送信</button>
+              </form>
+              <button onClick={() => firebase.auth().signOut()}>Logout</button>
+            </div>
+          </Grid>
+        </Grid>
+      </Wrap>
     </>
   );
 };
+
+const Wrap = styled.div`
+  background-color: #fffffe;
+`;
+
+const ProfileWrap = styled.section`
+  background-color: #094067;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+`;
+
+const ProfileHeader = styled.div`
+  border-bottom: 1px solid #90b4ce;
+  width: 100%;
+  height: 5.15vw;
+  color: #fffffe;
+  font-family: Montserrat;
+  font-size: 2.3vw; //4.4rem;
+  line-height: 2.8vw; //5.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    height: 2vw; //3.9rem;
+    transform: translate(-8%, 11%);
+  }
+`;
+
+const Profile = styled.div``;

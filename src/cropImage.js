@@ -64,3 +64,7 @@ export default async function getCroppedImg(imageSrc, pixelCrop, rotation = 0) {
     }, "image/jpeg");
   });
 }
+
+// react-easy-cropがcreateElementを使っている。
+// 仮想ではないDOM操作は推奨されていないため、
+// useRefなどに変えていく方が良い。
