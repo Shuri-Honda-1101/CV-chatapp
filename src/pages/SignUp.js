@@ -43,13 +43,11 @@ export const SignUp = ({ history }) => {
 
   const onChangeFile = (e) => {
     setSrc(URL.createObjectURL(e.target.files[0]));
-    setAvatar(e.target.files[0]);
     console.log(e.target.files[0]);
   };
 
   const onClickClose = () => {
     setSrc(null);
-    setAvatar(null);
     setSelectImageValue("");
   };
 
@@ -58,24 +56,20 @@ export const SignUp = ({ history }) => {
     const iconRef = firebase
       .storage()
       .ref()
-      .child("user-image/" + avatar.name);
-    console.log(avatar);
+      .child("user-image/" + email + "_icon.jpg");
     firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
-        iconRef
-          .putString(croppedImage.substring(23), "base64")
-          .then((snapshot) => {
-            iconRef.getDownloadURL().then((url) => {
-              console.log(url);
-              user.updateProfile({
-                displayName: name,
-                photoURL: url,
-              });
-              history.push("/");
+        iconRef.put(croppedImage).then((snapshot) => {
+          iconRef.getDownloadURL().then((url) => {
+            user.updateProfile({
+              displayName: name,
+              photoURL: url,
             });
+            history.push("/");
           });
+        });
       })
       .catch((err) => {
         console.log(err);
