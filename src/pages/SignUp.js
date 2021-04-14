@@ -306,10 +306,11 @@ const IconUp = styled.label`
       width: 11.5vw; //22rem;
       display: inline-block;
       position: absolute;
-      top: -18%;
-      left: -19%;
+      top: 0;
+      left: 0;
       z-index: 3;
       background-image: url(${iconMask});
+      background-size: contain;
     }
   }
   img {
