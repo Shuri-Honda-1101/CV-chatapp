@@ -20,6 +20,8 @@ export const SignUp = ({ history }) => {
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [croppedImage, setCroppedImage] = useState(iconDefault);
+  const [selectImageValue, setSelectImageValue] = useState("");
+  const [croppedImageUrl, setCroppedImageUrl] = useState(null);
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
@@ -29,9 +31,11 @@ export const SignUp = ({ history }) => {
     try {
       const croppedImage = await getCroppedImg(src, croppedAreaPixels);
       console.log("donee", { croppedImage });
+      setCroppedImageUrl(croppedImage);
       let blobImage = await fetch(croppedImage).then((r) => r.blob());
       setCroppedImage(blobImage);
       setSrc(null);
+      setSelectImageValue("");
     } catch (e) {
       console.error(e);
     }
@@ -46,6 +50,7 @@ export const SignUp = ({ history }) => {
   const onClickClose = () => {
     setSrc(null);
     setAvatar(null);
+    setSelectImageValue("");
   };
 
   const handleSubmit = (e) => {
@@ -93,11 +98,11 @@ export const SignUp = ({ history }) => {
             <div className="input-image-wrap">
               <IconUp>
                 <span>
-                  <img src={croppedImage} alt="デフォルトアイコン" />
+                  <img src={croppedImageUrl} alt="デフォルトアイコン" />
                 </span>
                 <input
                   type="file"
-                  files={avatar}
+                  value={selectImageValue}
                   name="avatar"
                   id="avatar"
                   onChange={onChangeFile}
@@ -344,6 +349,7 @@ const ModalCropper = styled.div`
     margin: 4rem 5.5rem 0 0;
     float: right; 
     cursor: pointer;
+    color: #EF4565;
   }
 
   .cropper-wrap {
