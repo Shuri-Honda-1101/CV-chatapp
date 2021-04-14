@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from "react";
 import firebase from "../config/firebase";
 import styled from "styled-components";
+import Logo from "../img/logo.png";
 import iconDefault from "../img/icon_default.png";
 import iconMask from "../img/icon-mask.png";
-import Logo from "../img/logo.png";
 import Button from "@material-ui/core/Button";
 import Slider from "@material-ui/core/Slider";
 import Cropper from "react-easy-crop";

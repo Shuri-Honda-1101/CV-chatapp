@@ -5,6 +5,7 @@ import { Item } from "./Item";
 import styled from "styled-components";
 import Logo from "../img/logo.png";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 export const Room = () => {
   const [value, setValue] = useState("");
@@ -73,13 +74,17 @@ export const Room = () => {
                 </h1>
               </ProfileHeader>
               <Profile className="profile">
-                <img src={user.photoURL} alt="ユーザーアイコン" />
-                <p>{user.displayName}</p>
-                <button>プロフィールを更新する</button>
+                <img
+                  className="user-icon"
+                  src={user.photoURL}
+                  alt="ユーザーアイコン"
+                />
+                <p className="user-name">{user.displayName}</p>
+                <Button className="profile-edit">プロフィールを編集する</Button>
               </Profile>
-              <div className="logout-btn">
-                <button>ログアウト</button>
-              </div>
+              <LogoutBtn variant="contained" className="logout">
+                ログアウト
+              </LogoutBtn>
             </ProfileWrap>
           </Grid>
           <Grid item xs={2} className="room-list_wrap">
@@ -138,12 +143,15 @@ const ProfileWrap = styled.section`
   justify-content: space-between;
   height: 100vh;
 `;
-
-const ProfileHeader = styled.div`
-  border-bottom: 1px solid #90b4ce;
+const Header = styled.div`
+  border-width: 1px;
+  border-style: solid;
   width: 100%;
   height: 5.15vw;
   color: #fffffe;
+`;
+const ProfileHeader = styled(Header)`
+  border-color: #90b4ce;
   font-family: Montserrat;
   font-size: 2.3vw; //4.4rem;
   line-height: 2.8vw; //5.4rem;
@@ -156,4 +164,46 @@ const ProfileHeader = styled.div`
   }
 `;
 
-const Profile = styled.div``;
+const Profile = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
+  .user-icon {
+    border-radius: 50%;
+    height: 18.6rem;
+  }
+  .user-name {
+    font-family: Montserrat;
+    color: #fffffe;
+    font-size: 4.4rem;
+    margin: 1.8rem 0;
+  }
+  .profile-edit {
+    color: #fffffe;
+    font-family: "ヒラギノ角ゴシック";
+    font-size: 2.1rem;
+    font-weight: normal;
+    padding: 0;
+  }
+`;
+
+const StyledButton = styled(Button)`
+  width: 11.4vw; //21.9rem;
+  color: #fff;
+  background-color: #ef4565;
+  font-size: 3.1rem;
+  border-radius: 0.62vw; //1.2rem;
+  font-family: "ヒラギノ丸ゴ ProN";
+  font-weight: normal;
+  line-height: 3.1vw; //6rem;
+  padding: 0;
+  :hover {
+    background-color: #dc004e;
+  }
+`;
+
+const LogoutBtn = styled(StyledButton)`
+  height: 3.9vw; //7.5rem;
+  margin-bottom: 2.6rem;
+`;
