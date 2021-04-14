@@ -310,7 +310,7 @@ const IconUp = styled.label`
       width: 22rem;
       display: inline-block;
       position: absolute;
-      top: -17%;
+      top: -18%;
       left: -19%;
       z-index: 3;
       background-image: url(${iconMask});
