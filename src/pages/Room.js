@@ -7,12 +7,17 @@ import Logo from "../img/logo.png";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { RoomListItem } from "./RoomListItem";
+import { ModalNewRoom } from "./ModalNewRoom";
 
 export const Room = () => {
   const [value, setValue] = useState("");
+  const [rooms, setRooms] = useState(null);
+
   const [messages, setMessages] = useState(null);
   const user = useContext(AuthContext);
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+  const [newRoom, setNewRoom] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +31,22 @@ export const Room = () => {
     });
     setValue("");
   };
+
+  const onClickAddRoom = () => {
+    setNewRoom(true);
+  };
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("rooms")
+      .onSnapshot((snapshot) => {
+        const rooms = snapshot.docs.map((doc) => {
+          return doc.data();
+        });
+        setRooms(rooms);
+      });
+  }, []);
 
   useEffect(() => {
     firebase
@@ -62,6 +83,7 @@ export const Room = () => {
 
   return (
     <>
+      {newRoom && <ModalNewRoom setNewRoom={setNewRoom} />}
       <Wrap>
         <Grid container spacing={0}>
           <Grid item xs={2} className="profile_wrap_grid">
@@ -92,11 +114,18 @@ export const Room = () => {
             <RoomListWrap className="room-list_wrap">
               <RoomListHeader className="room-list_header">
                 <h2>トークルーム</h2>
-                <span>
+                <StyledAddRoomButton onClick={onClickAddRoom}>
                   <StyledAddCircleIcon></StyledAddCircleIcon>
-                </span>
+                </StyledAddRoomButton>
               </RoomListHeader>
-              <div className="room-list"></div>
+              <RoomList className="room-list">
+                <ul>
+                  {rooms &&
+                    rooms.map((room, index) => {
+                      return <RoomListItem key={index} roomName={room.name} />;
+                    })}
+                </ul>
+              </RoomList>
             </RoomListWrap>
           </Grid>
           <Grid item xs={8} className="chat-room">
@@ -220,7 +249,6 @@ const RoomListWrap = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   height: 100vh;
   border-right-width: 1px;
   border-right-style: solid;
@@ -237,24 +265,31 @@ const RoomListHeader = styled(Header)`
     font-family: "ヒラギノ丸ゴ ProN";
     font-size: 3.1rem;
   }
-  span {
-    position: relative;
-    :before {
-      content: "";
-      height: 3.2rem;
-      width: 3.2rem;
-      background-color: #fff;
-      display: inline-block;
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      border-radius: 50%;
-    }
-  }
 `;
 
 const StyledAddCircleIcon = styled(AddCircleIcon)`
   font-size: 5.2rem;
   color: #ef4565;
   position: relative;
+`;
+
+const RoomList = styled.div`
+  width: 100%;
+  overflow: scroll;
+`;
+
+const StyledAddRoomButton = styled(Button)`
+  position: relative;
+  padding: 0;
+  :before {
+    content: "";
+    height: 3.2rem;
+    width: 3.2rem;
+    background-color: #fff;
+    display: inline-block;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    border-radius: 50%;
+  }
 `;
