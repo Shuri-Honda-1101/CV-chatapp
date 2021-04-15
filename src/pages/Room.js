@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Logo from "../img/logo.png";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 export const Room = () => {
   const [value, setValue] = useState("");
@@ -87,9 +88,16 @@ export const Room = () => {
               </LogoutBtn>
             </ProfileWrap>
           </Grid>
-          <Grid item xs={2} className="room-list_wrap">
-            <div className="room-list_header"></div>
-            <div className="room-list"></div>
+          <Grid item xs={2} className="room-list_wrap_grid">
+            <RoomListWrap className="room-list_wrap">
+              <RoomListHeader className="room-list_header">
+                <h2>トークルーム</h2>
+                <span>
+                  <StyledAddCircleIcon></StyledAddCircleIcon>
+                </span>
+              </RoomListHeader>
+              <div className="room-list"></div>
+            </RoomListWrap>
           </Grid>
           <Grid item xs={8} className="chat-room">
             <div className="chat-room_header"></div>
@@ -144,14 +152,14 @@ const ProfileWrap = styled.section`
   height: 100vh;
 `;
 const Header = styled.div`
-  border-width: 1px;
-  border-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
   width: 100%;
   height: 5.15vw;
   color: #fffffe;
 `;
 const ProfileHeader = styled(Header)`
-  border-color: #90b4ce;
+  border-bottom-color: #90b4ce;
   font-family: Montserrat;
   font-size: 2.3vw; //4.4rem;
   line-height: 2.8vw; //5.4rem;
@@ -206,4 +214,47 @@ const StyledButton = styled(Button)`
 const LogoutBtn = styled(StyledButton)`
   height: 3.9vw; //7.5rem;
   margin-bottom: 2.6rem;
+`;
+
+const RoomListWrap = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-bottom-color: #707070;
+`;
+const RoomListHeader = styled(Header)`
+  border-bottom-color: #707070;
+  background-color: #90b4ce;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.6rem;
+  h2 {
+    font-family: "ヒラギノ丸ゴ ProN";
+    font-size: 3.1rem;
+  }
+  span {
+    position: relative;
+    :before {
+      content: "";
+      height: 3.2rem;
+      width: 3.2rem;
+      background-color: #fff;
+      display: inline-block;
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      border-radius: 50%;
+    }
+  }
+`;
+
+const StyledAddCircleIcon = styled(AddCircleIcon)`
+  font-size: 5.2rem;
+  color: #ef4565;
+  position: relative;
 `;
