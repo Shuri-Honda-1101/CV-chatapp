@@ -12,10 +12,11 @@ export const ModalNewRoom = ({ setNewRoom }) => {
   //フォーム送信時の処理
   const onNewRoomSubmit = (e) => {
     e.preventDefault();
-    firebase.firestore().collection("rooms").add({
+    const newRoomId = firebase.firestore().collection("rooms").doc();
+    newRoomId.set({
       name: roomName,
       deleteKey: deleteKey,
-      id: shortid.generate(),
+      roomKey: shortid.generate(),
     });
     setRoomName("");
     setDeleteKey("");
@@ -39,6 +40,7 @@ export const ModalNewRoom = ({ setNewRoom }) => {
                 type="text"
                 name="room-name"
                 id="room-name"
+                required="required"
                 value={roomName}
                 placeholder="ルーム名"
                 onChange={(e) => setRoomName(e.target.value)}
@@ -47,6 +49,7 @@ export const ModalNewRoom = ({ setNewRoom }) => {
                 type="password"
                 name="delete-key"
                 id="delete-key"
+                required="required"
                 value={deleteKey}
                 placeholder="削除キー"
                 onChange={(e) => setDeleteKey(e.target.value)}

@@ -13,11 +13,13 @@ import { ModalNewRoom } from "./ModalNewRoom";
 export const Room = () => {
   const [value, setValue] = useState("");
   const [rooms, setRooms] = useState(null);
-
+  const [roomIds, setRoomIds] = useState(null);
   const [messages, setMessages] = useState(null);
   const user = useContext(AuthContext);
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
   const [newRoom, setNewRoom] = useState(false);
+
+  const dbRoom = firebase.firestore().collection("rooms");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -32,20 +34,34 @@ export const Room = () => {
     setValue("");
   };
 
+  //ルーム追加ボタンを押した時にモーダルウィンドウが表示されるための処理
   const onClickAddRoom = () => {
     setNewRoom(true);
   };
 
-  useEffect(() => {
-    firebase
-      .firestore()
-      .collection("rooms")
-      .onSnapshot((snapshot) => {
-        const rooms = snapshot.docs.map((doc) => {
-          return doc.data();
-        });
-        setRooms(rooms);
+  //ルーム削除ボタンを押した時の処理
+  const deleteRoomFunc = (index) => {
+    dbRoom
+      .doc(roomIds[index])
+      .delete()
+      .then(() => {
+        console.log("delete completed");
       });
+  };
+
+  useEffect(() => {
+    dbRoom.onSnapshot((snapshot) => {
+      //ルームリスト
+      const rooms = snapshot.docs.map((doc) => {
+        return doc.data();
+      });
+      //ルームリストのドキュメントIDを配列にする
+      const roomIds = snapshot.docs.map((doc) => {
+        return doc.id;
+      });
+      setRoomIds(roomIds);
+      setRooms(rooms);
+    });
   }, []);
 
   useEffect(() => {
@@ -122,7 +138,18 @@ export const Room = () => {
                 <ul>
                   {rooms &&
                     rooms.map((room, index) => {
-                      return <RoomListItem key={index} roomName={room.name} />;
+                      const onClickRoomDelete = () => {
+                        deleteRoomFunc(index);
+                      };
+                      return (
+                        <RoomListItem
+                          key={room.id}
+                          roomID={room.id}
+                          roomName={room.name}
+                          index={index}
+                          onClickRoomDelete={onClickRoomDelete}
+                        />
+                      );
                     })}
                 </ul>
               </RoomList>
