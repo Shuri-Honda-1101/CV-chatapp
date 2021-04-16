@@ -9,17 +9,19 @@ import Button from "@material-ui/core/Button";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { RoomListItem } from "./RoomListItem";
 import { ModalNewRoom } from "./ModalNewRoom";
+import { ModalDeleteKey } from "./ModalDeleteKey";
 
 export const Room = () => {
   const [value, setValue] = useState("");
   const [rooms, setRooms] = useState(null);
   const [roomIds, setRoomIds] = useState(null);
   const [messages, setMessages] = useState(null);
+  const [newRoom, setNewRoom] = useState(false);
+  const [roomIndex, setRoomIndex] = useState(null);
+  const [openDeleteKey, setOpenDeleteKey] = useState(false);
+  const [roomDeleteKey, setRoomDeleteKey] = useState(null);
   const user = useContext(AuthContext);
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-  const [newRoom, setNewRoom] = useState(false);
-
-  const dbRoom = firebase.firestore().collection("rooms");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -41,7 +43,9 @@ export const Room = () => {
 
   //ルーム削除ボタンを押した時の処理
   const deleteRoomFunc = (index) => {
-    dbRoom
+    firebase
+      .firestore()
+      .collection("rooms")
       .doc(roomIds[index])
       .delete()
       .then(() => {
@@ -50,6 +54,7 @@ export const Room = () => {
   };
 
   useEffect(() => {
+    const dbRoom = firebase.firestore().collection("rooms");
     dbRoom.onSnapshot((snapshot) => {
       //ルームリスト
       const rooms = snapshot.docs.map((doc) => {
@@ -100,6 +105,14 @@ export const Room = () => {
   return (
     <>
       {newRoom && <ModalNewRoom setNewRoom={setNewRoom} />}
+      {openDeleteKey && (
+        <ModalDeleteKey
+          setOpenDeleteKey={setOpenDeleteKey}
+          roomIndex={roomIndex}
+          deleteRoomFunc={deleteRoomFunc}
+          roomDeleteKey={roomDeleteKey}
+        />
+      )}
       <Wrap>
         <Grid container spacing={0}>
           <Grid item xs={2} className="profile_wrap_grid">
@@ -139,7 +152,9 @@ export const Room = () => {
                   {rooms &&
                     rooms.map((room, index) => {
                       const onClickRoomDelete = () => {
-                        deleteRoomFunc(index);
+                        setOpenDeleteKey(true);
+                        setRoomIndex(index);
+                        setRoomDeleteKey(room.deleteKey);
                       };
                       return (
                         <RoomListItem
