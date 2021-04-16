@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../AuthServise";
 import firebase from "../config/firebase";
-import { Item } from "./Item";
 import styled from "styled-components";
 import Logo from "../img/logo.png";
 import Grid from "@material-ui/core/Grid";
@@ -10,38 +9,23 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { RoomListItem } from "./RoomListItem";
 import { ModalNewRoom } from "./ModalNewRoom";
 import { ModalDeleteKey } from "./ModalDeleteKey";
+import { ChatRoom } from "./ChatRoom";
 
 export const Room = () => {
-  const [value, setValue] = useState("");
   const [rooms, setRooms] = useState(null);
   const [roomIds, setRoomIds] = useState(null);
-  const [messages, setMessages] = useState(null);
   const [newRoom, setNewRoom] = useState(false);
   const [roomIndex, setRoomIndex] = useState(null);
   const [openDeleteKey, setOpenDeleteKey] = useState(false);
   const [roomDeleteKey, setRoomDeleteKey] = useState(null);
   const user = useContext(AuthContext);
-  const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    firebase.firestore().collection("messages").add({
-      content: value,
-      user: user.displayName,
-      time: timestamp,
-      //Timeはnew Dateでとってしまうと、ブラウザの時間を取得するため、ブラウザの時間をいじっていると表示がおかしくなってしまう。
-      // そのため、firestoreで入力時の時間を取得するメソッドを使う。→ firestore.FieldValue.serverTimestamp()
-      avatar: user.photoURL,
-    });
-    setValue("");
-  };
 
   //ルーム追加ボタンを押した時にモーダルウィンドウが表示されるための処理
   const onClickAddRoom = () => {
     setNewRoom(true);
   };
 
-  //ルーム削除ボタンを押した時の処理
+  //ルーム削除時の処理
   const deleteRoomFunc = (index) => {
     firebase
       .firestore()
@@ -67,39 +51,6 @@ export const Room = () => {
       setRoomIds(roomIds);
       setRooms(rooms);
     });
-  }, []);
-
-  useEffect(() => {
-    firebase
-      .firestore()
-      .collection("messages")
-      .orderBy("time")
-      .onSnapshot((snapshot) => {
-        let messages = snapshot.docs.map((doc) => {
-          return doc.data({ serverTimestamps: "estimate" });
-        });
-        messages = messages.map((message) => {
-          message.year = message.time.toDate().getFullYear();
-          message.month = ("0" + (message.time.toDate().getMonth() + 1)).slice(
-            -2
-          );
-          message.date = ("0" + message.time.toDate().getDate()).slice(-2);
-          message.hour = ("0" + message.time.toDate().getHours()).slice(-2);
-          message.min = ("0" + message.time.toDate().getMinutes()).slice(-2);
-          return message;
-        });
-        // messages.sort((a, b) => {
-        //   if (a.time < b.time) {
-        //     return -1;
-        //   } else {
-        //     return 1;
-        //   }
-        // });
-
-        //firestoreにソートするメソッド"orderBy"があるため、そちらを使う。
-
-        setMessages(messages);
-      });
   }, []);
 
   return (
@@ -151,18 +102,16 @@ export const Room = () => {
                 <ul>
                   {rooms &&
                     rooms.map((room, index) => {
-                      const onClickRoomDelete = () => {
-                        setOpenDeleteKey(true);
-                        setRoomIndex(index);
-                        setRoomDeleteKey(room.deleteKey);
-                      };
                       return (
                         <RoomListItem
-                          key={room.id}
+                          key={room.roomKey}
                           roomID={room.id}
                           roomName={room.name}
                           index={index}
-                          onClickRoomDelete={onClickRoomDelete}
+                          deleteKey={room.deleteKey}
+                          setRoomIndex={setRoomIndex}
+                          setOpenDeleteKey={setOpenDeleteKey}
+                          setRoomDeleteKey={setRoomDeleteKey}
                         />
                       );
                     })}
@@ -171,38 +120,7 @@ export const Room = () => {
             </RoomListWrap>
           </Grid>
           <Grid item xs={8} className="chat-room">
-            <div className="chat-room_header"></div>
-            <div className="chat-log">
-              <ul>
-                {messages &&
-                  messages.map((message, index) => {
-                    return (
-                      <Item
-                        key={index}
-                        user={message.user}
-                        content={message.content}
-                        avatar={message.avatar}
-                        year={message.year}
-                        month={message.month}
-                        date={message.date}
-                        hour={message.hour}
-                        min={message.min}
-                      />
-                    );
-                  })}
-              </ul>
-            </div>
-            <div className="chat-submit">
-              <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
-                <button type="submit">送信</button>
-              </form>
-              <button onClick={() => firebase.auth().signOut()}>Logout</button>
-            </div>
+            <ChatRoom />
           </Grid>
         </Grid>
       </Wrap>

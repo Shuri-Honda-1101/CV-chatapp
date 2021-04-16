@@ -3,7 +3,19 @@ import Button from "@material-ui/core/Button";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 
-export const RoomListItem = ({ roomName, onClickRoomDelete }) => {
+export const RoomListItem = ({
+  roomName,
+  setOpenDeleteKey,
+  index,
+  setRoomDeleteKey,
+  setRoomIndex,
+  deleteKey,
+}) => {
+  const onClickRoomDelete = () => {
+    setOpenDeleteKey(true);
+    setRoomIndex(index);
+    setRoomDeleteKey(deleteKey);
+  };
   return (
     <RoomName>
       <StyledButton className="room-item_btn">
