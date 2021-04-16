@@ -3,29 +3,38 @@ import firebase from "../config/firebase";
 import { AuthContext } from "../AuthServise";
 import { Item } from "./Item";
 
-export const ChatRoom = () => {
+export const ChatRoom = ({ roomIds, roomIndex }) => {
   const [messages, setMessages] = useState(null);
   const [value, setValue] = useState("");
   const [messageIds, setMessageIds] = useState(null);
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
   const user = useContext(AuthContext);
 
+  //チャットメッセージ送信時の処理
   const handleSubmit = (e) => {
     e.preventDefault();
-    firebase.firestore().collection("messages").add({
-      content: value,
-      user: user.displayName,
-      time: timestamp,
-      //Timeはnew Dateでとってしまうと、ブラウザの時間を取得するため、ブラウザの時間をいじっていると表示がおかしくなってしまう。
-      // そのため、firestoreで入力時の時間を取得するメソッドを使う。→ firestore.FieldValue.serverTimestamp()
-      avatar: user.photoURL,
-    });
+    firebase
+      .firestore()
+      .collection("rooms")
+      .doc(roomIds[roomIndex])
+      .collection("messages")
+      .add({
+        content: value,
+        user: user.displayName,
+        time: timestamp,
+        //Timeはnew Dateでとってしまうと、ブラウザの時間を取得するため、ブラウザの時間をいじっていると表示がおかしくなってしまう。
+        // そのため、firestoreで入力時の時間を取得するメソッドを使う。→ firestore.FieldValue.serverTimestamp()
+        avatar: user.photoURL,
+      });
     setValue("");
   };
 
+  //メッセージ一覧と各ドキュメントIDを配列としてfirestoreからリアルタイムに取得する
   useEffect(() => {
     firebase
       .firestore()
+      .collection("rooms")
+      .doc(roomIds[roomIndex])
       .collection("messages")
       .orderBy("time")
       .onSnapshot((snapshot) => {
@@ -51,13 +60,16 @@ export const ChatRoom = () => {
         // });
 
         //firestoreにソートするメソッド"orderBy"があるため、そちらを使う。
+
         const messageIds = snapshot.docs.map((doc) => {
           return doc.id;
         });
+
         setMessageIds(messageIds);
         setMessages(messages);
       });
-  }, []);
+  }, [roomIds, roomIndex]);
+
   return (
     <>
       <div className="chat-room_header"></div>

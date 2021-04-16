@@ -119,7 +119,9 @@ export const Room = () => {
             </RoomListWrap>
           </Grid>
           <Grid item xs={8} className="chat-room">
-            <ChatRoom />
+            {roomIndex === null || (
+              <ChatRoom roomIndex={roomIndex} roomIds={roomIds} />
+            )}
           </Grid>
         </Grid>
       </Wrap>

@@ -11,6 +11,11 @@ export const RoomListItem = ({
   setRoomIndex,
   deleteKey,
 }) => {
+  //ルーム選択時の処理
+  const onClickRoomButton = () => {
+    setRoomIndex(index);
+  };
+  //削除ボタンクリック時の処理
   const onClickRoomDelete = () => {
     setOpenDeleteKey(true);
     setRoomIndex(index);
@@ -18,7 +23,7 @@ export const RoomListItem = ({
   };
   return (
     <RoomName>
-      <StyledButton className="room-item_btn">
+      <StyledButton onClick={onClickRoomButton} className="room-item_btn">
         <StyledArrowForwardIosIcon />
         {roomName}
         <StyledRemoveCircleIcon
