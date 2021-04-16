@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import firebase from "../config/firebase";
 import { AuthContext } from "../AuthServise";
-import shortid from "shortid";
 import { Item } from "./Item";
 
 export const ChatRoom = () => {
   const [messages, setMessages] = useState(null);
   const [value, setValue] = useState("");
+  const [messageIds, setMessageIds] = useState(null);
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
   const user = useContext(AuthContext);
 
@@ -19,7 +19,6 @@ export const ChatRoom = () => {
       //Timeはnew Dateでとってしまうと、ブラウザの時間を取得するため、ブラウザの時間をいじっていると表示がおかしくなってしまう。
       // そのため、firestoreで入力時の時間を取得するメソッドを使う。→ firestore.FieldValue.serverTimestamp()
       avatar: user.photoURL,
-      messageKey: shortid.generate(),
     });
     setValue("");
   };
@@ -52,7 +51,10 @@ export const ChatRoom = () => {
         // });
 
         //firestoreにソートするメソッド"orderBy"があるため、そちらを使う。
-
+        const messageIds = snapshot.docs.map((doc) => {
+          return doc.id;
+        });
+        setMessageIds(messageIds);
         setMessages(messages);
       });
   }, []);
@@ -65,7 +67,7 @@ export const ChatRoom = () => {
             messages.map((message, index) => {
               return (
                 <Item
-                  key={message.messageKey}
+                  key={messageIds[index]}
                   user={message.user}
                   content={message.content}
                   avatar={message.avatar}

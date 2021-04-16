@@ -2,7 +2,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
 import firebase from "../config/firebase";
-import shortid from "shortid";
 import { useState } from "react";
 
 export const ModalNewRoom = ({ setNewRoom }) => {
@@ -16,7 +15,6 @@ export const ModalNewRoom = ({ setNewRoom }) => {
     newRoomId.set({
       name: roomName,
       deleteKey: deleteKey,
-      roomKey: shortid.generate(),
     });
     setRoomName("");
     setDeleteKey("");

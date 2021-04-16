@@ -104,8 +104,7 @@ export const Room = () => {
                     rooms.map((room, index) => {
                       return (
                         <RoomListItem
-                          key={room.roomKey}
-                          roomID={room.id}
+                          key={roomIds[index]}
                           roomName={room.name}
                           index={index}
                           deleteKey={room.deleteKey}
