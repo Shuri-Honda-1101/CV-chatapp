@@ -83,7 +83,11 @@ export const Room = () => {
               <p className="user-name">{user.displayName}</p>
               <Button className="profile-edit">プロフィールを編集する</Button>
             </Profile>
-            <LogoutBtn variant="contained" className="logout">
+            <LogoutBtn
+              onClick={() => firebase.auth().signOut()}
+              variant="contained"
+              className="logout"
+            >
               ログアウト
             </LogoutBtn>
           </ProfileWrap>
@@ -118,7 +122,7 @@ export const Room = () => {
         </section>
         <section style={{ width: "68%" }} className="chat-room">
           {roomIndex === null || (
-            <ChatRoom roomIndex={roomIndex} roomIds={roomIds} />
+            <ChatRoom roomIndex={roomIndex} rooms={rooms} roomIds={roomIds} />
           )}
         </section>
       </Wrap>
@@ -165,6 +169,14 @@ const Profile = styled.div`
   flex-direction: column;
   align-items: center;
   overflow: scroll;
+  /* IE, Edge 対応 */
+  -ms-overflow-style: none;
+  /* Firefox 対応 */
+  scrollbar-width: none;
+  /* Chrome, Safari 対応 */
+  ::-webkit-scrollbar {
+    display: none;
+  }
   .user-icon {
     border-radius: 50%;
     height: 18.6rem;
@@ -184,7 +196,7 @@ const Profile = styled.div`
   }
 `;
 
-const StyledButton = styled(Button)`
+const LogoutBtn = styled(Button)`
   width: 11.4vw; //21.9rem;
   color: #fff;
   background-color: #ef4565;
@@ -197,14 +209,11 @@ const StyledButton = styled(Button)`
   :hover {
     background-color: #dc004e;
   }
-`;
-
-const LogoutBtn = styled(StyledButton)`
   height: 3.9vw; //7.5rem;
   margin-bottom: 2.6rem;
 `;
 
-const RoomListWrap = styled.section`
+const RoomListWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -235,6 +244,14 @@ const StyledAddCircleIcon = styled(AddCircleIcon)`
 const RoomList = styled.div`
   width: 100%;
   overflow: scroll;
+  /* IE, Edge 対応 */
+  -ms-overflow-style: none;
+  /* Firefox 対応 */
+  scrollbar-width: none;
+  /* Chrome, Safari 対応 */
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StyledAddRoomButton = styled(Button)`

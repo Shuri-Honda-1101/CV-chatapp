@@ -2,8 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import firebase from "../config/firebase";
 import { AuthContext } from "../AuthServise";
 import { Item } from "./Item";
+import styled from "styled-components";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import Button from "@material-ui/core/Button";
+import SendIcon from "@material-ui/icons/Send";
 
-export const ChatRoom = ({ roomIds, roomIndex }) => {
+export const ChatRoom = ({ roomIds, roomIndex, rooms }) => {
   const [messages, setMessages] = useState(null);
   const [value, setValue] = useState("");
   const [messageIds, setMessageIds] = useState(null);
@@ -71,9 +75,11 @@ export const ChatRoom = ({ roomIds, roomIndex }) => {
   }, [roomIds, roomIndex]);
 
   return (
-    <>
-      <div className="chat-room_header"></div>
-      <div className="chat-log">
+    <ChatRoomWrap>
+      <ChatRoomHeader className="chat-room_header">
+        <h2>{rooms[roomIndex].name}</h2>
+      </ChatRoomHeader>
+      <ChatLog className="chat-log">
         <ul>
           {messages &&
             messages.map((message, index) => {
@@ -92,18 +98,112 @@ export const ChatRoom = ({ roomIds, roomIndex }) => {
               );
             })}
         </ul>
-      </div>
-      <div className="chat-submit">
+      </ChatLog>
+      <ChatSubmit className="chat-submit">
         <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-          />
-          <button type="submit">送信</button>
+          <div>
+            <TextareaAutosize
+              rowsMax={13}
+              className="message-input"
+              type="text"
+              value={value}
+              placeholder="メッセージを入力"
+              onChange={(e) => setValue(e.target.value)}
+            />
+          </div>
+          <SSubmitButton type="submit">
+            <SSendIcon />
+          </SSubmitButton>
         </form>
-        <button onClick={() => firebase.auth().signOut()}>Logout</button>
-      </div>
-    </>
+      </ChatSubmit>
+    </ChatRoomWrap>
   );
 };
+
+const ChatRoomWrap = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: start;
+`;
+
+const ChatRoomHeader = styled.div`
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  width: 100%;
+  height: 5.15vw;
+  color: #fffffe;
+  border-bottom-color: #707070;
+  background-color: #90b4ce;
+  display: flex;
+  align-items: center;
+  padding: 0 1.6rem;
+  h2 {
+    font-family: "ヒラギノ丸ゴ ProN";
+    font-size: 3.1rem;
+  }
+`;
+
+const ChatLog = styled.div`
+  overflow: scroll;
+  /* IE, Edge 対応 */
+  -ms-overflow-style: none;
+  /* Firefox 対応 */
+  scrollbar-width: none;
+  /* Chrome, Safari 対応 */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  max-height: 80.6%;
+`;
+
+const ChatSubmit = styled.div`
+  margin-top: auto;
+  min-height: 10.9rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #707070;
+  form {
+    padding: 1.8rem;
+    display: flex;
+    align-items: center;
+  }
+  .message-input {
+    width: 78.9rem;
+    min-height: 7.6rem;
+    border-radius: 1.8rem;
+    border: 1px solid #707070;
+    font-size: 3.2rem;
+    padding: 1.9rem 2.9rem;
+    ::placeholder {
+      color: rgba(95, 108, 123, 0.56);
+    }
+  }
+`;
+
+const SSubmitButton = styled(Button)`
+  margin-top: auto;
+  margin-left: 4.3rem;
+  width: 8.8rem;
+  color: #fff;
+  background-color: #ef4565;
+  border-radius: 0.62vw; //1.2rem;
+  padding: 0;
+  :hover {
+    background-color: #dc004e;
+  }
+  height: 3.9vw; //7.5rem;
+`;
+
+const SSendIcon = styled(SendIcon)`
+  font-size: 3.8rem;
+  transform: translate(3px, -3px) rotate(-45deg);
+`;
