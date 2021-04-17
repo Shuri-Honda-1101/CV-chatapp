@@ -3,7 +3,6 @@ import { AuthContext } from "../AuthServise";
 import firebase from "../config/firebase";
 import styled from "styled-components";
 import Logo from "../img/logo.png";
-import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { RoomListItem } from "./RoomListItem";
@@ -65,65 +64,63 @@ export const Room = () => {
         />
       )}
       <Wrap>
-        <Grid container spacing={0}>
-          <Grid item xs={2} className="profile_wrap_grid">
-            <ProfileWrap className="profile_wrap">
-              <ProfileHeader className="profile_header">
-                <h1>
-                  <span>
-                    <img src={Logo} alt="logo" />
-                  </span>
-                  -Bond
-                </h1>
-              </ProfileHeader>
-              <Profile className="profile">
-                <img
-                  className="user-icon"
-                  src={user.photoURL}
-                  alt="ユーザーアイコン"
-                />
-                <p className="user-name">{user.displayName}</p>
-                <Button className="profile-edit">プロフィールを編集する</Button>
-              </Profile>
-              <LogoutBtn variant="contained" className="logout">
-                ログアウト
-              </LogoutBtn>
-            </ProfileWrap>
-          </Grid>
-          <Grid item xs={2} className="room-list_wrap_grid">
-            <RoomListWrap className="room-list_wrap">
-              <RoomListHeader className="room-list_header">
-                <h2>トークルーム</h2>
-                <StyledAddRoomButton onClick={onClickAddRoom}>
-                  <StyledAddCircleIcon></StyledAddCircleIcon>
-                </StyledAddRoomButton>
-              </RoomListHeader>
-              <RoomList className="room-list">
-                <ul>
-                  {rooms &&
-                    rooms.map((room, index) => {
-                      return (
-                        <RoomListItem
-                          key={roomIds[index]}
-                          roomName={room.name}
-                          index={index}
-                          deleteKey={room.deleteKey}
-                          setRoomIndex={setRoomIndex}
-                          setOpenDeleteKey={setOpenDeleteKey}
-                          setRoomDeleteKey={setRoomDeleteKey}
-                        />
-                      );
-                    })}
-                </ul>
-              </RoomList>
-            </RoomListWrap>
-          </Grid>
-          <Grid item xs={8} className="chat-room">
-            {roomIndex === null || (
-              <ChatRoom roomIndex={roomIndex} roomIds={roomIds} />
-            )}
-          </Grid>
-        </Grid>
+        <section style={{ width: "16%" }} className="profile_wrap_grid">
+          <ProfileWrap className="profile_wrap">
+            <ProfileHeader className="profile_header">
+              <h1>
+                <span>
+                  <img src={Logo} alt="logo" />
+                </span>
+                -Bond
+              </h1>
+            </ProfileHeader>
+            <Profile className="profile">
+              <img
+                className="user-icon"
+                src={user.photoURL}
+                alt="ユーザーアイコン"
+              />
+              <p className="user-name">{user.displayName}</p>
+              <Button className="profile-edit">プロフィールを編集する</Button>
+            </Profile>
+            <LogoutBtn variant="contained" className="logout">
+              ログアウト
+            </LogoutBtn>
+          </ProfileWrap>
+        </section>
+        <section style={{ width: "16%" }} className="room-list_wrap_grid">
+          <RoomListWrap className="room-list_wrap">
+            <RoomListHeader className="room-list_header">
+              <h2>トークルーム</h2>
+              <StyledAddRoomButton onClick={onClickAddRoom}>
+                <StyledAddCircleIcon></StyledAddCircleIcon>
+              </StyledAddRoomButton>
+            </RoomListHeader>
+            <RoomList className="room-list">
+              <ul>
+                {rooms &&
+                  rooms.map((room, index) => {
+                    return (
+                      <RoomListItem
+                        key={roomIds[index]}
+                        roomName={room.name}
+                        index={index}
+                        deleteKey={room.deleteKey}
+                        setRoomIndex={setRoomIndex}
+                        setOpenDeleteKey={setOpenDeleteKey}
+                        setRoomDeleteKey={setRoomDeleteKey}
+                      />
+                    );
+                  })}
+              </ul>
+            </RoomList>
+          </RoomListWrap>
+        </section>
+        <section style={{ width: "68%" }} className="chat-room">
+          {roomIndex === null || (
+            <ChatRoom roomIndex={roomIndex} roomIds={roomIds} />
+          )}
+        </section>
       </Wrap>
     </>
   );
@@ -131,6 +128,7 @@ export const Room = () => {
 
 const Wrap = styled.div`
   background-color: #fffffe;
+  display: flex;
 `;
 
 const ProfileWrap = styled.section`
