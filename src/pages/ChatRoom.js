@@ -132,16 +132,18 @@ const ChatRoomHeader = styled.div`
   border-bottom-width: 1px;
   border-bottom-style: solid;
   width: 100%;
+
+  min-height: 5.15vw;
   height: 5.15vw;
   color: #fffffe;
   border-bottom-color: #707070;
   background-color: #90b4ce;
   display: flex;
   align-items: center;
-  padding: 0 1.6rem;
+  padding: 0 0.83vw;
   h2 {
     font-family: "ヒラギノ丸ゴ ProN";
-    font-size: 3.1rem;
+    font-size: 1.6vw;
   }
 `;
 
@@ -163,7 +165,7 @@ const ChatLog = styled.div`
 
 const ChatSubmit = styled.div`
   margin-top: auto;
-  min-height: 10.9rem;
+  min-height: 5.68vw;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -172,17 +174,17 @@ const ChatSubmit = styled.div`
   border-top-style: solid;
   border-top-color: #707070;
   form {
-    padding: 1.8rem;
+    padding: 0.94vw;
     display: flex;
     align-items: center;
   }
   .message-input {
-    width: 78.9rem;
-    min-height: 7.6rem;
-    border-radius: 1.8rem;
+    width: 41vw;
+    min-height: 4vw;
+    border-radius: 0.94vw;
     border: 1px solid #707070;
-    font-size: 3.2rem;
-    padding: 1.9rem 2.9rem;
+    font-size: 1.67vw;
+    padding: 0.99vw 1.5vw;
     ::placeholder {
       color: rgba(95, 108, 123, 0.56);
     }
@@ -191,19 +193,21 @@ const ChatSubmit = styled.div`
 
 const SSubmitButton = styled(Button)`
   margin-top: auto;
-  margin-left: 4.3rem;
-  width: 8.8rem;
+  margin-left: 2.24vw;
+  min-width: calc(88 / 1920 * 100vw);
+  width: calc(88 / 1920 * 100vw);
   color: #fff;
   background-color: #ef4565;
-  border-radius: 0.62vw; //1.2rem;
+  border-radius: calc(12 / 1920 * 100vw);
   padding: 0;
   :hover {
     background-color: #dc004e;
   }
-  height: 3.9vw; //7.5rem;
+  height: calc(75 / 1920 * 100vw);
 `;
 
 const SSendIcon = styled(SendIcon)`
-  font-size: 3.8rem;
-  transform: translate(3px, -3px) rotate(-45deg);
+  font-size: calc(38 / 1920 * 100vw);
+  transform: translate(calc(3 / 1920 * 100vw), calc(-3 / 1920 * 100vw))
+    rotate(-45deg);
 `;

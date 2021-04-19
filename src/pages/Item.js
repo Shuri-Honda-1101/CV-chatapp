@@ -36,53 +36,53 @@ export const Item = ({
 
 const SMessageList = styled.li`
   display: flex;
-  padding: 1.6rem;
+  padding: calc(16 / 1920 * 100vw);
   font-family: "ヒラギノ角ゴシック";
   color: #5f6c7b;
 `;
 
 const SUserIcon = styled.img`
-  width: 14.5rem;
-  height: 14.5rem;
+  width: calc(145 / 1920 * 100vw);
+  height: calc(145 / 1920 * 100vw);
   border-radius: 50%;
 `;
 
 const SUserNameMessageWrap = styled.div`
-  margin-left: 1.6rem;
-  padding-top: 3.4rem;
+  margin-left: calc(16 / 1920 * 100vw);
+  padding-top: calc(34 / 1920 * 100vw);
   .user-name {
-    font-size: 3rem;
-    margin-bottom: 1.8rem;
+    font-size: calc(30 / 1920 * 100vw);
+    margin-bottom: calc(18 / 1920 * 100vw);
   }
   .message-balloon {
-    max-width: 52rem;
+    max-width: calc(520 / 1920 * 100vw);
     display: inline-block;
     position: relative;
-    margin-left: 1.3rem;
-    padding: 2.4rem;
-    border-radius: 12px;
+    margin-left: calc(13 / 1920 * 100vw);
+    padding: calc(24 / 1920 * 100vw);
+    border-radius: calc(12 / 1920 * 100vw);
     background: #d8e2ef;
     :after {
       content: "";
       display: inline-block;
       position: absolute;
-      top: -15px;
-      left: -26px;
-      border: 12px solid transparent;
-      border-right: 30px solid #d8e2ef;
+      top: calc(-15 / 1920 * 100vw);
+      left: calc(-26 / 1920 * 100vw);
+      border: calc(12 / 1920 * 100vw) solid transparent;
+      border-right: calc(30 / 1920 * 100vw) solid #d8e2ef;
       transform: rotate(45deg);
     }
   }
   .user-message {
-    font-size: 2.5rem;
-    line-height: 3rem;
+    font-size: calc(25 / 1920 * 100vw);
+    line-height: calc(30 / 1920 * 100vw);
   }
 `;
 
 const SDateWrap = styled.div`
-  font-size: 2rem;
+  font-size: calc(20 / 1920 * 100vw);
   margin-top: auto;
-  margin-left: 1.3rem;
-  line-height: 3rem;
+  margin-left: calc(13 / 1920 * 100vw);
+  line-height: calc(30 / 1920 * 100vw);
   opacity: 0.75;
 `;

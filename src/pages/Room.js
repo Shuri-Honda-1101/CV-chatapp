@@ -147,19 +147,20 @@ const Header = styled.div`
   border-bottom-width: 1px;
   border-bottom-style: solid;
   width: 100%;
+  min-height: 5.15vw;
   height: 5.15vw;
   color: #fffffe;
 `;
 const ProfileHeader = styled(Header)`
   border-bottom-color: #90b4ce;
   font-family: Montserrat;
-  font-size: 2.3vw; //4.4rem;
-  line-height: 2.8vw; //5.4rem;
+  font-size: calc(44 / 1920 * 100vw);
+  line-height: calc(54 / 1920 * 100vw);
   display: flex;
   align-items: center;
   justify-content: center;
   img {
-    height: 2vw; //3.9rem;
+    height: calc(39 / 1920 * 100vw);
     transform: translate(-8%, 11%);
   }
 `;
@@ -179,38 +180,41 @@ const Profile = styled.div`
   }
   .user-icon {
     border-radius: 50%;
-    height: 18.6rem;
+    height: calc(186 / 1920 * 100vw);
   }
   .user-name {
     font-family: Montserrat;
     color: #fffffe;
-    font-size: 4.4rem;
-    margin: 1.8rem 0;
+    font-size: calc(44 / 1920 * 100vw);
+    margin: calc(18 / 1920 * 100vw) 0;
   }
   .profile-edit {
     color: #fffffe;
     font-family: "ヒラギノ角ゴシック";
-    font-size: 2.1rem;
+    font-size: calc(21 / 1920 * 100vw);
     font-weight: normal;
     padding: 0;
+    min-width: 0;
+    letter-spacing: 0;
   }
 `;
 
 const LogoutBtn = styled(Button)`
-  width: 11.4vw; //21.9rem;
+  min-width: calc(219 / 1920 * 100vw);
+  width: calc(219 / 1920 * 100vw);
   color: #fff;
   background-color: #ef4565;
-  font-size: 3.1rem;
-  border-radius: 0.62vw; //1.2rem;
+  font-size: calc(31 / 1920 * 100vw);
+  border-radius: calc(12 / 1920 * 100vw);
   font-family: "ヒラギノ丸ゴ ProN";
   font-weight: normal;
-  line-height: 3.1vw; //6rem;
+  line-height: calc(60 / 1920 * 100vw);
   padding: 0;
   :hover {
     background-color: #dc004e;
   }
-  height: 3.9vw; //7.5rem;
-  margin-bottom: 2.6rem;
+  height: calc(75 / 1920 * 100vw);
+  margin-bottom: calc(26 / 1920 * 100vw);
 `;
 
 const RoomListWrap = styled.div`
@@ -227,16 +231,15 @@ const RoomListHeader = styled(Header)`
   background-color: #90b4ce;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 1.6rem;
+  padding: 0 0 0 calc(16 / 1920 * 100vw);
   h2 {
     font-family: "ヒラギノ丸ゴ ProN";
-    font-size: 3.1rem;
+    font-size: 1.6vw; //alc(31 / 1920 * 100vw);
   }
 `;
 
 const StyledAddCircleIcon = styled(AddCircleIcon)`
-  font-size: 5.2rem;
+  font-size: calc(52 / 1920 * 100vw);
   color: #ef4565;
   position: relative;
 `;
@@ -255,17 +258,17 @@ const RoomList = styled.div`
 `;
 
 const StyledAddRoomButton = styled(Button)`
+  min-width: calc(64 / 1920 * 100vw);
+  margin-left: auto;
   position: relative;
   padding: 0;
   :before {
     content: "";
-    height: 3.2rem;
-    width: 3.2rem;
+    height: calc(32 / 1920 * 100vw);
+    width: calc(32 / 1920 * 100vw);
     background-color: #fff;
     display: inline-block;
     position: absolute;
-    top: 1rem;
-    left: 1rem;
     border-radius: 50%;
   }
 `;

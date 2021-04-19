@@ -152,13 +152,14 @@ const Header = styled.section`
   height: 5.15vw;
   color: #fffffe;
   font-family: Montserrat;
-  font-size: 2.3vw; //4.4rem;
-  line-height: 2.8vw; //5.4rem;
+  font-size: calc(44 / 1920 * 100vw);
+  line-height: calc(54 / 1920 * 100vw);
   display: flex;
   align-items: center;
-  padding: 1.35vw 0 1.35vw 3.28vw; // 2.6rem 0 2.6rem 6.3rem;
+  padding: calc(26 / 1920 * 100vw) 0 calc(26 / 1920 * 100vw)
+    calc(63 / 1920 * 100vw);
   img {
-    height: 2vw; //3.9rem;
+    height: calc(39 / 1920 * 100vw);
     transform: translate(-8%, 11%);
   }
 `;
@@ -166,13 +167,13 @@ const Header = styled.section`
 const LoginForm = styled.section`
   color: #5f6c7b;
   width: 68.2vw; //= 1309 / 1920
-  margin: 4.6vw auto; //8.9rem auto;
+  margin: calc(89 / 1920 * 100vw) auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   h2 {
     font-family: "ヒラギノ丸ゴ ProN";
-    font-size: 3.9vw; //7.5rem;
+    font-size: calc(75 / 1920 * 100vw);
     color: #7a92a3;
   }
 `;
@@ -181,30 +182,30 @@ const LoginWrap = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 2.8vw; //5.4rem;
+  margin-top: calc(54 / 1920 * 100vw);
 `;
 
 const LoginExNewWrap = styled.div`
   color: #5f6c7b;
   width: 48%;
-  height: 35vw; //674px;
+  height: calc(674 / 1920 * 100vw);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 `;
 
 const LoginMail = styled.div`
-  height: 35.1vw; //674px;
+  height: calc(674 / 1920 * 100vw);
   width: 48%;
   border: 1px solid #90b4ce;
-  border-radius: 0.78vw; //1.5rem;
+  border-radius: calc(15 / 1920 * 100vw);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 4vw 0; //7.8rem 0;
+  padding: calc(78 / 1920 * 100vw) 0;
   h3 {
-    font-size: 1.87vw; //3.6rem
-    margin-bottom: 4.3vw; //8.2rem;
+    font-size: calc(36 / 1920 * 100vw);
+    margin-bottom: calc(82 / 1920 * 100vw);
   }
   form {
     display: flex;
@@ -212,38 +213,38 @@ const LoginMail = styled.div`
     align-items: center;
     input {
       width: 21.9vw; //430/1920
-      height: 3.9vw; //7.5rem;
-      border-radius: 0.62vw; //1.2rem;
+      height: calc(75 / 1920 * 100vw);
+      border-radius: calc(12 / 1920 * 100vw);
       border: 1px solid #707070;
-      padding-left: 1.5vw; //2.9rem;
+      padding-left: calc(29 / 1920 * 100vw);
       font-family: "ヒラギノ丸ゴ ProN";
-      font-size: 1.15vw; //2.2rem;
+      font-size: calc(22 / 1920 * 100vw);
       ::placeholder {
         color: rgba(95, 108, 123, 0.56);
       }
     }
     .input-mail {
-      margin-bottom: 1.7vw; //3.3rem;
+      margin-bottom: calc(33 / 1920 * 100vw);
     }
 
     button {
-      margin: 2.86vw 0; //5.5rem 0;
+      margin: calc(55 / 1920 * 100vw) 0;
       background-color: #ef4565;
       color: #fff;
-      font-size: 1.8vw; //3.5rem;
-      border-radius: 0.62vw; //1.2rem;
-      width: 11.4vw; //21.9rem;
-      height: 3.9vw; //7.5rem;
+      font-size: calc(35 / 1920 * 100vw);
+      border-radius: calc(12 / 1920 * 100vw);
+      width: calc(219 / 1920 * 100vw);
+      height: calc(75 / 1920 * 100vw);
       font-family: "ヒラギノ丸ゴ ProN";
       font-weight: normal;
-      line-height: 3.1vw; //6rem;
+      line-height: calc(60 / 1920 * 100vw);
       :hover {
         background-color: #dc004e;
       }
     }
   }
   button {
-    font-size: 1.3vw; //2.5rem;
+    font-size: calc(25 / 1920 * 100vw);
     color: #5f6c7b;
     padding: 0;
   }
@@ -251,45 +252,45 @@ const LoginMail = styled.div`
 
 const LoginEx = styled.div`
   background-color: rgba(144, 180, 206, 0.3);
-  border-radius: 0.78vw; //1.5rem
+  border-radius: calc(15 / 1920 * 100vw);
   width: 100%;
-  padding: 4.1vw 0; //7.8rem
+  padding: calc(78 / 1920 * 100vw) 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   h3 {
-    font-size: 1.87vw; //3.6rem
-    margin-bottom: 2.2vw; //4.3rem
+    font-size: calc(36 / 1920 * 100vw);
+    margin-bottom: calc(43 / 1920 * 100vw);
   }
   button {
     font-family: "ヒラギノ丸ゴ ProN";
-    height: 3.9vw; //7.5rem;
-    font-size: 1.14vw; //2.2rem;
+    height: calc(75 / 1920 * 100vw);
+    font-size: calc(22 / 1920 * 100vw);
     border: 0;
-    border-radius: 0.62vw; //1.2rem;
+    border-radius: calc(12 / 1920 * 100vw);
     width: 68%; //430/628
     text-align: right;
-    line-height: 3.91vw; //7.5rem;
+    line-height: calc(75 / 1920 * 100vw);
     padding: 0;
     letter-spacing: 0;
     text-transform: none;
     :after {
-      transform: translate(-17.4vw, 0); //-29.8rem
+      transform: translate(-17.4vw, 0);
       vertical-align: middle;
       content: "";
       display: inline-block;
       width: 1px;
-      height: 2.96vw; //5.7rem;
+      height: 2.96vw;
     }
     img {
-      width: 2.37vw; //4.55rem;
+      width: 2.37vw;
       vertical-align: middle;
       margin-right: 2.8vw;
     }
   }
   .btn-google {
     color: #5f6c7b;
-    margin-bottom: 1.7vw; //3.3rem;
+    margin-bottom: 1.7vw;
     background-color: #fff;
     :hover {
       background-color: #f0eaea;
@@ -311,21 +312,21 @@ const LoginEx = styled.div`
 `;
 
 const LoginNew = styled.div`
-  padding: 2.2vw 0; //4.2rem 0;
+  padding: 2.2vw 0;
   width: 100%;
   border: 1px solid #90b4ce;
-  border-radius: 0.78vw; //1.5rem;
+  border-radius: 0.78vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   p {
-    font-size: 1.15vw; //2.2rem;
-    margin-bottom: 1.56vw; //3rem;
+    font-size: 1.15vw;
+    margin-bottom: 1.56vw;
     :before,
     :after {
       content: "";
       height: 1px;
-      width: 8vw; //15.4rem;
+      width: 8vw;
       background-color: #707070;
       display: inline-block;
       vertical-align: middle;
@@ -333,30 +334,30 @@ const LoginNew = styled.div`
     }
   }
   button {
-    height: 3.9vw; //7.5rem;
-    font-size: 1.14vw; //2.2rem;
+    height: 3.9vw;
+    font-size: 1.14vw;
     border: 0;
-    border-radius: 0.62vw; //1.2rem;
+    border-radius: 0.62vw;
     width: 68%; //430/628
     padding: 0;
     padding-right: 1vw;
     letter-spacing: 0;
     text-transform: none;
     text-align: right;
-    line-height: 3.91vw; //7.5rem;
+    line-height: 3.91vw;
     :hover {
       background-color: #90b4ce;
     }
     :after {
-      transform: translate(-16.4vw, 0); //-29.8rem
+      transform: translate(-16.4vw, 0);
       vertical-align: middle;
       content: "";
       display: inline-block;
       width: 1px;
-      height: 2.96vw; //5.7rem;
+      height: 2.96vw;
     }
     img {
-      width: 2.1vw; //4rem;
+      width: 2.1vw;
       vertical-align: middle;
       margin-right: 3vw;
     }

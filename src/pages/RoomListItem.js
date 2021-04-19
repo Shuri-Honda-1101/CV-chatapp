@@ -38,13 +38,13 @@ export const RoomListItem = ({
 const RoomName = styled.li``;
 
 const StyledButton = styled(Button)`
-  padding: 4.2rem 1.6rem;
-  font-size: 3.1rem;
+  padding: calc(42 / 1920 * 100vw) calc(16 / 1920 * 100vw);
+  font-size: calc(31 / 1920 * 100vw);
   color: #5f6c7b;
-  height: 9.8rem;
+  height: calc(98 / 1920 * 100vw);
   width: 100%;
   font-weight: normal;
-  line-height: 3.1rem;
+  line-height: calc(31 / 1920 * 100vw);
   text-transform: inherit;
   font-family: "ヒラギノ丸ゴ ProN";
   justify-content: start;
@@ -56,7 +56,7 @@ const StyledButton = styled(Button)`
 `;
 
 const StyledArrowForwardIosIcon = styled(ArrowForwardIosIcon)`
-  font-size: 2.1rem;
+  font-size: calc(21 / 1920 * 100vw);
   vertical-align: middle;
   margin-right: 10px;
 `;
@@ -64,7 +64,7 @@ const StyledArrowForwardIosIcon = styled(ArrowForwardIosIcon)`
 const StyledRemoveCircleIcon = styled(RemoveCircleIcon)`
   color: #ef4565;
   cursor: pointer;
-  font-size: 3.1rem;
+  font-size: calc(31 / 1920 * 100vw);
   margin-left: auto;
   display: none;
 `;

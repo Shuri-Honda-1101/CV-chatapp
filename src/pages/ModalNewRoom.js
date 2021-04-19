@@ -83,24 +83,25 @@ const NewRoomWrap = styled.section`
 
 const NewRoom = styled.div`
   background-color: #fffffe;
-  width: 77.2rem;
-  height: 87.5rem;
-  border-radius: 6.5rem;
+  width: calc(772 / 1920 * 100vw);
+  height: calc(875 / 1920 * 100vw);
+  border-radius: calc(65 / 1920 * 100vw);
   display: flex;
   flex-direction: column;
-  padding: 5.75rem 7.05rem;
+  padding: calc(57.5 / 1920 * 100vw) calc(70.5 / 1920 * 100vw);
 `;
 
 const StyledCloseIcon = styled(CloseIcon)`
   display: inline-block;
   color: #ef4565;
-  font-size: 2.6vw; //5rem;
+  font-size: 2.6vw;
   margin-left: auto;
   //ここだけ右寄せにする処理
 `;
 
 const NewRoomForm = styled.form`
-  margin: 8.15rem 6.15rem 13.15rem;
+  margin: calc(81.5 / 1920 * 100vw) calc(61.5 / 1920 * 100vw)
+    calc(131.5 / 1920 * 100vw);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -108,7 +109,7 @@ const NewRoomForm = styled.form`
   height: 100%;
   .form-title {
     font-family: "ヒラギノ丸ゴ ProN";
-    font-size: 5rem;
+    font-size: calc(50 / 1920 * 100vw);
     color: #7a92a3;
   }
   .form-input {
@@ -117,12 +118,12 @@ const NewRoomForm = styled.form`
     justify-content: space-between;
     height: 37.8%;
     input {
-      height: 7.5rem;
-      width: 50.9rem;
+      height: calc(75 / 1920 * 100vw);
+      width: calc(509 / 1920 * 100vw);
       border: 1px solid #707070;
-      border-radius: 1.2rem;
-      font-size: 2.2rem;
-      padding-left: 2.9rem;
+      border-radius: calc(12 / 1920 * 100vw);
+      font-size: calc(22 / 1920 * 100vw);
+      padding-left: calc(29 / 1920 * 100vw);
       ::placeholder {
         color: rgba(95, 108, 123, 0.56);
       }
@@ -134,9 +135,9 @@ const StyledSubmitButton = styled(Button)`
   background-color: #ef4565;
   color: #fffffe;
   font-family: "ヒラギノ丸ゴ ProN";
-  font-size: 3.5rem;
+  font-size: calc(35 / 1920 * 100vw);
   padding: 0;
-  height: 7.5rem;
-  width: 21.9rem;
-  border-radius: 1.2rem;
+  height: calc(75 / 1920 * 100vw);
+  width: calc(219 / 1920 * 100vw);
+  border-radius: calc(12 / 1920 * 100vw);
 `;
