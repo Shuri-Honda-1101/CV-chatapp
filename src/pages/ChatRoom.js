@@ -168,7 +168,6 @@ const ChatLog = styled.div`
 
 const ChatSubmit = styled.div`
   margin-top: auto;
-  min-height: 5.68vw;
   width: 100%;
   display: flex;
   justify-content: center;
