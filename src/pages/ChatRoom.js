@@ -25,6 +25,7 @@ export const ChatRoom = ({ roomIds, roomIndex, rooms }) => {
       .add({
         content: value,
         user: user.displayName,
+        userId: user.uid,
         time: timestamp,
         //Timeはnew Dateでとってしまうと、ブラウザの時間を取得するため、ブラウザの時間をいじっていると表示がおかしくなってしまう。
         // そのため、firestoreで入力時の時間を取得するメソッドを使う。→ firestore.FieldValue.serverTimestamp()
@@ -94,6 +95,7 @@ export const ChatRoom = ({ roomIds, roomIndex, rooms }) => {
                   date={message.date}
                   hour={message.hour}
                   min={message.min}
+                  userId={message.userId}
                 />
               );
             })}
@@ -161,6 +163,7 @@ const ChatLog = styled.div`
   flex-direction: column;
   justify-content: start;
   max-height: 80.6%;
+  width: 100%;
 `;
 
 const ChatSubmit = styled.div`
