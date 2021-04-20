@@ -100,6 +100,7 @@ const SUserNameMessageWrap = styled.div`
     }
   }
   .user-message {
+    white-space: pre-wrap;
     font-size: calc(25 / 1920 * 100vw);
     line-height: calc(30 / 1920 * 100vw);
   }
