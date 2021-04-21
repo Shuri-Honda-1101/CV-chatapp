@@ -6,6 +6,7 @@ import iconDefault from "../img/icon_default.png";
 import iconMask from "../img/icon-mask.png";
 import Button from "@material-ui/core/Button";
 import { ModalCropper } from "./ModalCropper";
+import getCroppedImg from "../cropImage";
 
 export const SignUp = ({ history }) => {
   const [email, setEmail] = useState("");
@@ -15,12 +16,15 @@ export const SignUp = ({ history }) => {
   const [croppedImage, setCroppedImage] = useState(null);
   const [selectImageValue, setSelectImageValue] = useState("");
   const [croppedImageUrl, setCroppedImageUrl] = useState(iconDefault);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
 
+  //画像選択
   const onChangeFile = (e) => {
     setSrc(URL.createObjectURL(e.target.files[0]));
     console.log(e.target.files[0]);
   };
 
+  //新規登録ボタンクリック
   const handleSubmit = (e) => {
     e.preventDefault();
     const iconRef = firebase
@@ -45,6 +49,32 @@ export const SignUp = ({ history }) => {
         console.log(err);
       });
   };
+
+  //ModalCropperの処理
+  const onClickClose = () => {
+    setSrc(null);
+    setSelectImageValue("");
+  };
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+  const showCroppedImage = useCallback(async () => {
+    try {
+      const croppedImage = await getCroppedImg(src, croppedAreaPixels);
+      console.log("donee", { croppedImage });
+      setCroppedImageUrl(croppedImage);
+      let blobImage = await fetch(croppedImage).then((r) => r.blob());
+      setCroppedImage(blobImage);
+      setSrc(null);
+      setSelectImageValue("");
+    } catch (e) {
+      console.error(e);
+    }
+  }, [src, croppedAreaPixels]);
+  //ここまでModalCropperの処理
+
   return (
     <>
       <Header>
@@ -75,11 +105,10 @@ export const SignUp = ({ history }) => {
             </div>
             {src && (
               <ModalCropper
-                setSrc={setSrc}
-                setSelectImageValue={setSelectImageValue}
                 src={src}
-                setCroppedImageUrl={setCroppedImageUrl}
-                setCroppedImage={setCroppedImage}
+                onClickClose={onClickClose}
+                onCropComplete={onCropComplete}
+                showCroppedImage={showCroppedImage}
               />
             )}
             <div className="input-wrap">

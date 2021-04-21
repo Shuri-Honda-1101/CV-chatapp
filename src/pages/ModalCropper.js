@@ -1,45 +1,18 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import CloseIcon from "@material-ui/icons/Close";
 import Slider from "@material-ui/core/Slider";
 import Cropper from "react-easy-crop";
 import Button from "@material-ui/core/Button";
 import styled from "styled-components";
-import getCroppedImg from "../cropImage";
 
 export const ModalCropper = ({
-  setSrc,
-  setSelectImageValue,
+  onClickClose,
+  onCropComplete,
   src,
-  setCroppedImageUrl,
-  setCroppedImage,
+  showCroppedImage,
 }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-
-  const onClickClose = () => {
-    setSrc(null);
-    setSelectImageValue("");
-  };
-
-  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-    setCroppedAreaPixels(croppedAreaPixels);
-  }, []);
-
-  const showCroppedImage = useCallback(async () => {
-    try {
-      const croppedImage = await getCroppedImg(src, croppedAreaPixels);
-      console.log("donee", { croppedImage });
-      setCroppedImageUrl(croppedImage);
-      let blobImage = await fetch(croppedImage).then((r) => r.blob());
-      setCroppedImage(blobImage);
-      setSrc(null);
-      setSelectImageValue("");
-    } catch (e) {
-      console.error(e);
-    }
-  }, [src, croppedAreaPixels]);
-
   return (
     <ModalCropperWrap>
       <ModalCropperInner>

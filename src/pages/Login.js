@@ -53,6 +53,7 @@ export const Login = ({ history }) => {
       })
       .catch((error) => {
         console.log(error);
+        window.alert("メールアドレスかパスワードが間違っています");
       });
   };
 
