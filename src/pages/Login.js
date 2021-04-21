@@ -7,10 +7,16 @@ import Logo from "../img/logo.png";
 import btnGoogle from "../img/btn_google.png";
 import btnTwitter from "../img/btn_twitter.png";
 import Button from "@material-ui/core/Button";
+import { ModalForgetPassword } from "./ModalForgetPassword";
 
 export const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [openForget, setOpenForget] = useState(false);
+
+  const onClickResetPassword = () => {
+    setOpenForget(true);
+  };
 
   const user = useContext(AuthContext);
   if (user) {
@@ -140,10 +146,13 @@ export const Login = ({ history }) => {
               </Button>
               <br />
             </form>
-            <Button>パスワードを忘れた方はこちらから</Button>
+            <Button onClick={onClickResetPassword}>
+              パスワードを忘れた方はこちらから
+            </Button>
           </LoginMail>
         </LoginWrap>
       </LoginForm>
+      {openForget && <ModalForgetPassword setForget={setOpenForget} />}
     </>
   );
 };

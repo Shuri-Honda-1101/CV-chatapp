@@ -9,6 +9,7 @@ import { RoomListItem } from "./RoomListItem";
 import { ModalNewRoom } from "./ModalNewRoom";
 import { ModalDeleteKey } from "./ModalDeleteKey";
 import { ChatRoom } from "./ChatRoom";
+import { ModalEditProfile } from "./ModalEditProfile";
 
 export const Room = () => {
   const [rooms, setRooms] = useState(null);
@@ -17,6 +18,7 @@ export const Room = () => {
   const [roomIndex, setRoomIndex] = useState(null);
   const [openDeleteKey, setOpenDeleteKey] = useState(false);
   const [roomDeleteKey, setRoomDeleteKey] = useState(null);
+  const [openEditProfile, setOpenEditProfile] = useState(false);
   const user = useContext(AuthContext);
 
   //ルーム追加ボタンを押した時にモーダルウィンドウが表示されるための処理
@@ -52,6 +54,15 @@ export const Room = () => {
     });
   }, []);
 
+  //ModalEditProfileの処理
+  const onClickEditProfile = () => {
+    setOpenEditProfile(true);
+  };
+
+  const onClickCloseEditProfile = () => {
+    setOpenEditProfile(false);
+  };
+
   return (
     <>
       {newRoom && <ModalNewRoom setNewRoom={setNewRoom} />}
@@ -62,6 +73,9 @@ export const Room = () => {
           deleteRoomFunc={deleteRoomFunc}
           roomDeleteKey={roomDeleteKey}
         />
+      )}
+      {openEditProfile && (
+        <ModalEditProfile onClickCloseEditProfile={onClickCloseEditProfile} />
       )}
       <Wrap>
         <section style={{ width: "16%" }} className="profile_wrap_grid">
@@ -81,7 +95,9 @@ export const Room = () => {
                 alt="ユーザーアイコン"
               />
               <p className="user-name">{user.displayName}</p>
-              <Button className="profile-edit">プロフィールを編集する</Button>
+              <Button onClick={onClickEditProfile} className="profile-edit">
+                プロフィールを編集する
+              </Button>
             </Profile>
             <LogoutBtn
               onClick={() => firebase.auth().signOut()}

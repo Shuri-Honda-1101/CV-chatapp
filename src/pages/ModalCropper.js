@@ -53,7 +53,7 @@ export const ModalCropper = ({
 };
 
 const ModalCropperWrap = styled.div`
-  z-index: 4;
+  z-index: 6;
   position: fixed;
   top: 0;
   left: 0;
@@ -67,7 +67,7 @@ const ModalCropperWrap = styled.div`
 `;
 
 const ModalCropperInner = styled.div`
-  z-index: 5;
+  z-index: 7;
   height: 45.6vw; //87.5rem;
   width: 40.2vw; //77.2rem;
   border-radius: 3.4vw; //6.5rem;
