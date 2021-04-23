@@ -50,7 +50,6 @@ export const ModalEditProfile = ({ onClickCloseEditProfile }) => {
       console.error(e);
     }
   }, [src, croppedAreaPixels]);
-  //ここまでModalCropperの処理
 
   //パスワードまたはメールアドレスを再設定するときの処理
   const onClickCredential = () => {
@@ -58,32 +57,36 @@ export const ModalEditProfile = ({ onClickCloseEditProfile }) => {
   };
 
   //フォーム送信時の処理
-  const onEditProfileSubmit = (e) => {
-    e.preventDefault();
-    const iconRef = firebase
-      .storage()
-      .ref()
-      .child("user-image/" + user.email + "_icon.jpg");
-    if (password !== "") {
-      onClickCredential();
-    } else if (email !== user.email) {
-      onClickCredential();
-    } else if (croppedImage) {
-      iconRef.put(croppedImage).then(() => {
-        iconRef.getDownloadURL().then((url) => {
-          user
-            .updateProfile({
-              displayName: name,
-              photoURL: url,
-            })
-            .then(() => {
-              onClickCloseEditProfile();
+  const profileUpdate = () => {
+    if (croppedImage) {
+      iconRef
+        .put(croppedImage)
+        .then(() => {
+          iconRef
+            .getDownloadURL()
+            .then((url) => {
+              user
+                .updateProfile({
+                  displayName: name,
+                  photoURL: url,
+                })
+                .then(() => {
+                  onClickCloseEditProfile();
+                })
+                .catch((err) => {
+                  console.log(err);
+                  window.alert("プロフィールの更新に失敗しました");
+                });
             })
             .catch((err) => {
               console.log(err);
+              window.alert("アイコン画像の読み込みに失敗しました");
             });
+        })
+        .catch((err) => {
+          console.log(err);
+          window.alert("画像のアップロードに失敗しました");
         });
-      });
     } else {
       user
         .updateProfile({
@@ -94,9 +97,116 @@ export const ModalEditProfile = ({ onClickCloseEditProfile }) => {
         })
         .catch((err) => {
           console.log(err);
+          window.alert("プロフィールの更新に失敗しました");
         });
     }
   };
+
+  const iconRef = firebase
+    .storage()
+    .ref()
+    .child("user-image/" + user.email + "_icon.jpg");
+
+  const onEditProfileSubmit = (e) => {
+    e.preventDefault();
+    if (password !== "" || email !== user.email) {
+      onClickCredential();
+    } else {
+      profileUpdate();
+    }
+  };
+
+  //ModalCredentialの処理
+  const onClickCloseCredential = () => {
+    setOpenCredential(false);
+    setPassword("");
+    setEmail(user.email);
+  };
+
+  const onSubmitCredential = (e) => {
+    e.preventDefault();
+    const credential = firebase.auth.EmailAuthProvider.credential(
+      user.email,
+      nowPassword
+    );
+    user
+      .reauthenticateWithCredential(credential)
+      .then(({ user }) => {
+        if (password !== "" && email !== user.email) {
+          user
+            .updatePassword(password)
+            .then(() => {
+              console.log("パスワードを変更しました");
+              user
+                .updateEmail(email)
+                .then(() => {
+                  console.log("メールアドレスを変更しました");
+                  user
+                    .sendEmailVerification()
+                    .then(() => {
+                      window.alert(`${email}に確認メールを送信しました`);
+                      profileUpdate();
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                      window.alert(
+                        `メールアドレスの変更は完了しましたが、${email}に確認メールを送信できませんでした`
+                      );
+                      profileUpdate();
+                    });
+                })
+                .catch((err) => {
+                  console.log(err);
+                  window.alert("メールアドレスの更新に失敗しました");
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+              window.alert("パスワードとメールアドレスの更新に失敗しました");
+            });
+        } else if (password !== "") {
+          user
+            .updatePassword(password)
+            .then(() => {
+              console.log("パスワードを変更しました");
+              profileUpdate();
+            })
+            .catch((err) => {
+              console.log(err);
+              window.alert("パスワードの更新に失敗しました");
+            });
+        } else if (email !== user.email) {
+          user
+            .updateEmail(email)
+            .then(() => {
+              console.log("メールアドレスを変更しました");
+              user
+                .sendEmailVerification()
+                .then(() => {
+                  window.alert(`${email}に確認メールを送信しました`);
+                  profileUpdate(user);
+                })
+                .catch((err) => {
+                  console.log(err);
+                  window.alert(
+                    `メールアドレスの変更は完了しましたが、${email}に確認メールを送信できませんでした`
+                  );
+                  profileUpdate(user);
+                });
+            })
+            .catch((err) => {
+              console.log(err);
+              window.alert("メールアドレスの更新に失敗しました");
+            });
+        }
+      })
+      .catch(function (err) {
+        console.log(err);
+        window.alert("パスワードが間違っています");
+      });
+  };
+  //ここまでModalCredentialの処理
+  //ここまでフォーム送信時の処理
 
   return (
     <>
@@ -113,8 +223,8 @@ export const ModalEditProfile = ({ onClickCloseEditProfile }) => {
           setNowPassword={setNowPassword}
           nowPassword={nowPassword}
           setOpenCredential={setOpenCredential}
-          setPassword={setPassword}
-          setEmail={setEmail}
+          onClickCloseCredential={onClickCloseCredential}
+          onSubmitCredential={onSubmitCredential}
         />
       )}
       <EditProfileWrap>

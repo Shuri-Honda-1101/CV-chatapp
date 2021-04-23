@@ -35,18 +35,47 @@ export const SignUp = ({ history }) => {
       .auth()
       .createUserWithEmailAndPassword(email, password)
       .then(({ user }) => {
-        iconRef.put(croppedImage).then((snapshot) => {
-          iconRef.getDownloadURL().then((url) => {
-            user.updateProfile({
-              displayName: name,
-              photoURL: url,
-            });
-            history.push("/");
+        user
+          .sendEmailVerification()
+          .then(() => {
+            window.alert(`${email}に確認メールを送信しました`);
+            iconRef
+              .put(croppedImage)
+              .then(() => {
+                iconRef
+                  .getDownloadURL()
+                  .then((url) => {
+                    user
+                      .updateProfile({
+                        displayName: name,
+                        photoURL: url,
+                      })
+                      .then(() => {
+                        history.push("/");
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        window.alert("プロフィールの作成に失敗しました");
+                      });
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    window.alert("アイコン画像の取得に失敗しました");
+                  });
+              })
+              .catch((err) => {
+                console.log(err);
+                window.alert("画像をアップロード出来ませんでした");
+              });
+          })
+          .catch((err) => {
+            console.log(err);
+            window.alert(`${email}に確認メールを送信できませんでした`);
           });
-        });
       })
       .catch((err) => {
         console.log(err);
+        window.alert("アカウントの作成に失敗しました");
       });
   };
 

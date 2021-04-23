@@ -1,43 +1,19 @@
 import CloseIcon from "@material-ui/icons/Close";
 import styled from "styled-components";
 import Button from "@material-ui/core/Button";
-import { AuthContext } from "../AuthServise";
-import { useContext, useState } from "react";
 
 export const ModalCredential = ({
   setNowPassword,
   nowPassword,
-  setOpenCredential,
-  setPassword,
-  setEmail,
+  onClickCloseCredential,
+  onSubmitCredential,
 }) => {
-  const user = useContext(AuthContext);
-  //フォーム送信時の処理
-  //   const onDeleteKeySubmit = (e) => {
-  //     e.preventDefault();
-  //     if (deleteKey === roomDeleteKey) {
-  //       deleteRoomFunc(roomIndex);
-  //       setOpenDeleteKey(false);
-  //     } else {
-  //       window.alert("削除キーが違います");
-  //     }
-  //   };
-
-  //×ボタンクリック時の処理
-  const onClickCloseDeleteKey = () => {
-    setOpenCredential(false);
-    setPassword("");
-    setEmail(user.email);
-  };
-
   return (
     <>
       <DeleteKeyWrap>
         <DeleteKey>
-          <StyledCloseIcon onClick={onClickCloseDeleteKey} />
-          <DeleteKeyForm
-          //   onSubmit={onDeleteKeySubmit}
-          >
+          <StyledCloseIcon onClick={onClickCloseCredential} />
+          <DeleteKeyForm onSubmit={onSubmitCredential}>
             <h4 className="form-title">現在のパスワード</h4>
             <div className="form-input">
               <input
