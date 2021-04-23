@@ -74,7 +74,6 @@ const SUserNameMessageWrap = styled.div`
     margin-bottom: calc(18 / 1920 * 100vw);
   }
   .message-balloon {
-    max-width: calc(520 / 1920 * 100vw);
     display: inline-block;
     position: relative;
     margin-right: ${({ userId, nowUserId }) =>

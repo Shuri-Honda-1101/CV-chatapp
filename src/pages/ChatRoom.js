@@ -162,7 +162,6 @@ const ChatLog = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
-  max-height: 80.6%;
   width: 100%;
 `;
 
