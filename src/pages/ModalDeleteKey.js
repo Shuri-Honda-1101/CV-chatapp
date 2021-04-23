@@ -131,4 +131,7 @@ const StyledSubmitButton = styled(Button)`
   height: calc(75 / 1920 * 100vw);
   width: calc(219 / 1920 * 100vw);
   border-radius: calc(12 / 1920 * 100vw);
+  :hover {
+    background-color: #dc004e;
+  }
 `;
