@@ -68,7 +68,7 @@ const ModalCropperWrap = styled.div`
 
 const ModalCropperInner = styled.div`
   z-index: 7;
-  height: 45.6vw; //87.5rem;
+  height: 49.6vw; //87.5rem;
   width: 40.2vw; //77.2rem;
   border-radius: 3.4vw; //6.5rem;
   background-color: #fff;
