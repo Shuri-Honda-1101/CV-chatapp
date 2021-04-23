@@ -75,7 +75,10 @@ export const Room = () => {
         />
       )}
       {openEditProfile && (
-        <ModalEditProfile onClickCloseEditProfile={onClickCloseEditProfile} />
+        <ModalEditProfile
+          onClickCloseEditProfile={onClickCloseEditProfile}
+          roomIds={roomIds}
+        />
       )}
       <Wrap>
         <section style={{ width: "16%" }} className="profile_wrap_grid">

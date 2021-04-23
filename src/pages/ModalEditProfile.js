@@ -9,7 +9,7 @@ import { ModalCropper } from "./ModalCropper";
 import getCroppedImg from "../cropImage";
 import { ModalCredential } from "./ModalCredential";
 
-export const ModalEditProfile = ({ onClickCloseEditProfile }) => {
+export const ModalEditProfile = ({ onClickCloseEditProfile, roomIds }) => {
   const user = useContext(AuthContext);
   const [src, setSrc] = useState(null);
   const [selectImageValue, setSelectImageValue] = useState("");
@@ -57,6 +57,33 @@ export const ModalEditProfile = ({ onClickCloseEditProfile }) => {
   };
 
   //フォーム送信時の処理
+  const updateMessages = () => {
+    for (let i = 0; i < roomIds.length; i++) {
+      const dbRoom = firebase.firestore().collection("rooms").doc(roomIds[i]);
+      dbRoom.collection("messages").onSnapshot((snapshot) => {
+        const messageIds = snapshot.docs.map((doc) => {
+          return doc.id;
+        });
+        for (let j = 0; j < messageIds.length; j++) {
+          const dbMessage = dbRoom.collection("messages").doc(messageIds[j]);
+          dbMessage.get().then((doc) => {
+            const dbMessageDoc = doc.data();
+            if (dbMessageDoc.userId === user.uid) {
+              dbMessage
+                .update({
+                  user: user.displayName,
+                  avatar: user.photoURL,
+                })
+                .then(() => {})
+                .catch((err) => {
+                  console.log(err);
+                });
+            }
+          });
+        }
+      });
+    }
+  };
   const profileUpdate = () => {
     if (croppedImage) {
       iconRef
@@ -71,6 +98,7 @@ export const ModalEditProfile = ({ onClickCloseEditProfile }) => {
                   photoURL: url,
                 })
                 .then(() => {
+                  updateMessages();
                   onClickCloseEditProfile();
                 })
                 .catch((err) => {
@@ -93,6 +121,7 @@ export const ModalEditProfile = ({ onClickCloseEditProfile }) => {
           displayName: name,
         })
         .then(() => {
+          updateMessages();
           onClickCloseEditProfile();
         })
         .catch((err) => {
