@@ -15,9 +15,7 @@ export const Item = ({
 }) => {
   const nowUser = useContext(AuthContext);
   if (userId === nowUser.uid) {
-    console.log("これはあなたが投稿しました");
   } else {
-    console.log("これは他の人が投稿しました");
   }
   return (
     <SMessageList userId={userId} nowUserId={nowUser.uid}>

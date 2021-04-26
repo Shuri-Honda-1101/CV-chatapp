@@ -1,4 +1,10 @@
-import { useContext, useEffect, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  // useRef,
+  useState,
+} from "react";
 import firebase from "../config/firebase";
 import { AuthContext } from "../AuthServise";
 import { Item } from "./Item";
@@ -13,6 +19,16 @@ export const ChatRoom = ({ roomIds, roomIndex, rooms }) => {
   const [messageIds, setMessageIds] = useState(null);
   const timestamp = firebase.firestore.FieldValue.serverTimestamp();
   const user = useContext(AuthContext);
+
+  const messageEndRef = React.useRef();
+  useLayoutEffect(() => {
+    messageEndRef &&
+      messageEndRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+  });
 
   //チャットメッセージ送信時の処理
   const handleSubmit = (e) => {
@@ -100,6 +116,7 @@ export const ChatRoom = ({ roomIds, roomIndex, rooms }) => {
               );
             })}
         </ul>
+        <div ref={messageEndRef}></div>
       </ChatLog>
       <ChatSubmit className="chat-submit">
         <form onSubmit={handleSubmit}>

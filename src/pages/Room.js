@@ -132,6 +132,7 @@ export const Room = () => {
                         setRoomIndex={setRoomIndex}
                         setOpenDeleteKey={setOpenDeleteKey}
                         setRoomDeleteKey={setRoomDeleteKey}
+                        roomIndex={roomIndex}
                       />
                     );
                   })}
