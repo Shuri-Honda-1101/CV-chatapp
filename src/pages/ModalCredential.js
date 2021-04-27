@@ -81,7 +81,9 @@ const DeleteKeyForm = styled.form`
   justify-content: space-between;
   height: 100%;
   .form-title {
-    font-family: "ヒラギノ丸ゴ ProN";
+    font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+      "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO",
+      "Montserrat", sans-serif;
     font-size: calc(50 / 1920 * 100vw);
     color: #7a92a3;
   }
@@ -106,7 +108,8 @@ const DeleteKeyForm = styled.form`
 const StyledSubmitButton = styled(Button)`
   background-color: #ef4565;
   color: #fffffe;
-  font-family: "ヒラギノ丸ゴ ProN";
+  font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+    "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO";
   font-size: calc(35 / 1920 * 100vw);
   padding: 0;
   height: calc(75 / 1920 * 100vw);

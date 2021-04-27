@@ -46,7 +46,8 @@ const StyledButton = styled(Button)`
   font-weight: normal;
   line-height: calc(31 / 1920 * 100vw);
   text-transform: inherit;
-  font-family: "ヒラギノ丸ゴ ProN";
+  font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+    "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO";
   justify-content: start;
   :hover {
     .room-item_delete {

@@ -161,7 +161,7 @@ const Header = styled.section`
   background-color: #094067;
   height: 5.15vw;
   color: #fffffe;
-  font-family: Montserrat;
+  font-family: "Montserrat", sans-serif;
   font-size: calc(44 / 1920 * 100vw);
   line-height: calc(54 / 1920 * 100vw);
   display: flex;
@@ -182,7 +182,9 @@ const LoginForm = styled.section`
   flex-direction: column;
   align-items: center;
   h2 {
-    font-family: "ヒラギノ丸ゴ ProN";
+    font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+      "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO",
+      "Montserrat", sans-serif;
     font-size: calc(75 / 1920 * 100vw);
     color: #7a92a3;
   }
@@ -227,7 +229,8 @@ const LoginMail = styled.div`
       border-radius: calc(12 / 1920 * 100vw);
       border: 1px solid #707070;
       padding-left: calc(29 / 1920 * 100vw);
-      font-family: "ヒラギノ丸ゴ ProN";
+      font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+        "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO";
       font-size: calc(22 / 1920 * 100vw);
       ::placeholder {
         color: rgba(95, 108, 123, 0.56);
@@ -245,7 +248,8 @@ const LoginMail = styled.div`
       border-radius: calc(12 / 1920 * 100vw);
       width: calc(219 / 1920 * 100vw);
       height: calc(75 / 1920 * 100vw);
-      font-family: "ヒラギノ丸ゴ ProN";
+      font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+        "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO";
       font-weight: normal;
       line-height: calc(60 / 1920 * 100vw);
       :hover {
@@ -273,7 +277,9 @@ const LoginEx = styled.div`
     margin-bottom: calc(43 / 1920 * 100vw);
   }
   button {
-    font-family: "ヒラギノ丸ゴ ProN";
+    font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+      "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO",
+      "Montserrat", sans-serif;
     height: calc(75 / 1920 * 100vw);
     font-size: calc(22 / 1920 * 100vw);
     border: 0;

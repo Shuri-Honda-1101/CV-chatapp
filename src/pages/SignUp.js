@@ -184,7 +184,7 @@ const Header = styled.section`
   background-color: #094067;
   height: 5.15vw;
   color: #fffffe;
-  font-family: Montserrat;
+  font-family: "Montserrat", sans-serif;
   font-size: 2.3vw; //4.4rem;
   line-height: 2.8vw; //5.4rem;
   display: flex;
@@ -204,7 +204,9 @@ const SignUpFormWrap = styled.section`
   flex-direction: column;
   align-items: center;
   h2 {
-    font-family: "ヒラギノ丸ゴ ProN";
+    font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+      "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO",
+      "Montserrat", sans-serif;
     font-size: 3.9vw; //7.5rem;
     color: #7a92a3;
     margin-bottom: 1.77vw; //3.4rem;
@@ -238,7 +240,8 @@ const SignUpForm = styled.div`
         border-radius: 0.62vw; //1.2rem;
         border: 1px solid #707070;
         padding-left: 1.5vw; //2.9rem;
-        font-family: "ヒラギノ丸ゴ ProN";
+        font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+          "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO";
         font-size: 1.15vw; //2.2rem;
         ::placeholder {
           color: rgba(95, 108, 123, 0.56);
@@ -258,7 +261,8 @@ const SignUpForm = styled.div`
       border-radius: 0.62vw; //1.2rem;
       width: 11.4vw; //21.9rem;
       height: 3.9vw; //7.5rem;
-      font-family: "ヒラギノ丸ゴ ProN";
+      font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+        "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO";
       font-weight: normal;
       line-height: 3.1vw; //6rem;
       :hover {

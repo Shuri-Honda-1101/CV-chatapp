@@ -46,7 +46,8 @@ const SMessageList = styled.li`
     userId === nowUserId ? "row-reverse" : "row"};
   display: flex;
   padding: calc(16 / 1920 * 100vw);
-  font-family: "ヒラギノ角ゴシック";
+  font-family: "ヒラギノ角ゴ ProN W3", "HiraKakuProN-W3", "ヒラギノ角ゴ Pro W3",
+    "HiraKakuPro-W3", "メイリオ", Meiryo;
   color: #5f6c7b;
   width: 100%;
 `;

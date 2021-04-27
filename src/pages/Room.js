@@ -173,7 +173,7 @@ const Header = styled.div`
 `;
 const ProfileHeader = styled(Header)`
   border-bottom-color: #90b4ce;
-  font-family: Montserrat;
+  font-family: "Montserrat", sans-serif;
   font-size: calc(44 / 1920 * 100vw);
   line-height: calc(54 / 1920 * 100vw);
   display: flex;
@@ -203,14 +203,15 @@ const Profile = styled.div`
     height: calc(186 / 1920 * 100vw);
   }
   .user-name {
-    font-family: Montserrat;
+    font-family: "Montserrat", sans-serif;
     color: #fffffe;
     font-size: calc(44 / 1920 * 100vw);
     margin: calc(18 / 1920 * 100vw) 0;
   }
   .profile-edit {
     color: #fffffe;
-    font-family: "ヒラギノ角ゴシック";
+    font-family: "ヒラギノ角ゴ ProN W3", "HiraKakuProN-W3",
+      "ヒラギノ角ゴ Pro W3", "HiraKakuPro-W3", "メイリオ", Meiryo;
     font-size: calc(21 / 1920 * 100vw);
     font-weight: normal;
     padding: 0;
@@ -226,7 +227,8 @@ const LogoutBtn = styled(Button)`
   background-color: #ef4565;
   font-size: calc(31 / 1920 * 100vw);
   border-radius: calc(12 / 1920 * 100vw);
-  font-family: "ヒラギノ丸ゴ ProN";
+  font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+    "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO";
   font-weight: normal;
   line-height: calc(60 / 1920 * 100vw);
   padding: 0;
@@ -253,7 +255,9 @@ const RoomListHeader = styled(Header)`
   align-items: center;
   padding: 0 0 0 calc(16 / 1920 * 100vw);
   h2 {
-    font-family: "ヒラギノ丸ゴ ProN";
+    font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+      "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO",
+      "Montserrat", sans-serif;
     font-size: 1.6vw; //alc(31 / 1920 * 100vw);
   }
 `;

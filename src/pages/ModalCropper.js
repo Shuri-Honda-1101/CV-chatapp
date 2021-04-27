@@ -114,7 +114,8 @@ const ModalCropperInner = styled.div`
       border-radius: 0.62vw; //1.2rem;
       width: 11.4vw; //21.9rem;
       height: 3.9vw; //7.5rem;
-      font-family: "ヒラギノ丸ゴ ProN";
+      font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+      "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO", 'Montserrat', sans-serif;
       font-weight: normal;
       line-height: 3.1vw; //6rem;
       :hover {
