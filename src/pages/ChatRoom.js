@@ -161,7 +161,9 @@ const ChatRoomHeader = styled.div`
   align-items: center;
   padding: 0 0.83vw;
   h2 {
-    font-family: "ヒラギノ丸ゴ ProN";
+    font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+      "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO",
+      "Montserrat", sans-serif, "Montserrat", sans-serif;
     font-size: 1.6vw;
   }
 `;

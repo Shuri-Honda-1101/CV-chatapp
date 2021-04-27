@@ -374,7 +374,8 @@ const EditProfileForm = styled.form`
     display: flex;
     flex-direction: column;
     color: #90b4ce;
-    font-family: "ヒラギノ角ゴシック";
+    font-family: "ヒラギノ角ゴ ProN W3", "HiraKakuProN-W3",
+      "ヒラギノ角ゴ Pro W3", "HiraKakuPro-W3", "メイリオ", Meiryo;
     p {
       font-size: calc(22 / 1920 * 100vw);
       margin-bottom: calc(8 / 1920 * 100vw);
@@ -385,7 +386,8 @@ const EditProfileForm = styled.form`
       border: 1px solid #90b4ce;
       border-radius: calc(12 / 1920 * 100vw);
       color: #5f6c7b;
-      font-family: "ヒラギノ角ゴシック";
+      font-family: "ヒラギノ角ゴ ProN W3", "HiraKakuProN-W3",
+        "ヒラギノ角ゴ Pro W3", "HiraKakuPro-W3", "メイリオ", Meiryo;
       font-size: calc(22 / 1920 * 100vw);
       padding-left: calc(29 / 1920 * 100vw);
       ::placeholder {
@@ -399,7 +401,8 @@ const StyledSubmitButton = styled(Button)`
   display: block;
   background-color: #ef4565;
   color: #fffffe;
-  font-family: "ヒラギノ丸ゴ ProN";
+  font-family: "ヒラギノ丸ゴ Pro W4", "ヒラギノ丸ゴ Pro",
+    "Hiragino Maru Gothic Pro", "HG丸ｺﾞｼｯｸM-PRO", "HGMaruGothicMPRO";
   font-size: calc(35 / 1920 * 100vw);
   padding: calc(15 / 1920 * 100vw) 0;
   height: calc(75 / 1920 * 100vw);
